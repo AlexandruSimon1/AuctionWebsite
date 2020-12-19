@@ -18,7 +18,7 @@ public class Purchasing {
     private int id;
     @OneToOne
     @JoinColumn(name = "auction_id")
-    private List<Auction> auctionList;
+    private Auction auction;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private List<User> userList;
