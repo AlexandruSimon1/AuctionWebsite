@@ -32,7 +32,8 @@ public class Auction {
     @Column(name = "end_date")
     private LocalDateTime endDate;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Category> categoryList;
+    @JoinColumn(name = "category_id")
+    private Category category;
     @OneToMany(mappedBy = "auction")
     private List<Bidding> biddingList;
     @OneToOne(mappedBy = "auction")

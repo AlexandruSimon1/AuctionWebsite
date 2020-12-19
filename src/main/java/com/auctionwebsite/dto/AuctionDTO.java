@@ -15,7 +15,7 @@ public class AuctionDTO {
     private int buyNow;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private List<CategoryDTO> categoryDTOList;
+    private CategoryDTO categoryDTO;
     private List<BiddingDTO> biddingDTOList;
     private PurchasingDTO purchasingDTO;
 }

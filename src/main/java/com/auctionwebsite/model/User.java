@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,10 @@ public class User {
     private Date creationDate;
     @Column(name = "type")
     private String type;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private Address address;
+    @OneToMany (mappedBy = "user")
+    private List<Purchasing> purchasingList;
+    @OneToMany (mappedBy = "user")
+    private List<Bidding>biddingList;
 }
