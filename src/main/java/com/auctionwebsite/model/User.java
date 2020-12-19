@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "user")
 public class User {
     @Id
@@ -27,10 +28,10 @@ public class User {
     private Date creationDate;
     @Column(name = "type")
     private String type;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Address address;
-    @OneToMany (mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     private List<Purchasing> purchasingList;
-    @OneToMany (mappedBy = "user")
-    private List<Bidding>biddingList;
+    @OneToMany(mappedBy = "user")
+    private List<Bidding> biddingList;
 }

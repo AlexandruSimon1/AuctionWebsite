@@ -11,8 +11,8 @@ import javax.sql.DataSource;
 @Configuration
 public class PersistanceConfig {
     //define this property in your embedded properties file or use spring's default
-    @Value("${liquibase.change-log}")
-    private String defaultLiquibaseChangelog;
+//    @Value("${liquibase.change-log}")
+//    private String defaultLiquibaseChangelog;
     @Bean
     public DataSource getDataSource() {
         return DataSourceBuilder.create().driverClassName("com.mysql.cj.jdbc.Driver")
@@ -20,11 +20,19 @@ public class PersistanceConfig {
                 .username("root").password("Sanea@21041990").build();
     }
 
+//    @Bean
+//    public SpringLiquibase getSpringLiquiBase() {
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setChangeLog(defaultLiquibaseChangelog);
+//        liquibase.setDataSource(getDataSource());
+//        return liquibase;
+//    }
+
     @Bean
-    public SpringLiquibase getSpringLiquiBase() {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(getDataSource());
-        liquibase.setChangeLog(defaultLiquibaseChangelog);
-        return liquibase;
+    public SpringLiquibase getSpringLiquibase () {
+        SpringLiquibase springLiquibase = new SpringLiquibase();
+        springLiquibase.setChangeLog("classpath:db/changelog/liquibase-changelog.xml");
+        springLiquibase.setDataSource(getDataSource());
+        return springLiquibase;
     }
 }
