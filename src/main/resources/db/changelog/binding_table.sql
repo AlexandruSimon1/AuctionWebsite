@@ -1,4 +1,4 @@
-CREATE TABLE purchasing
+CREATE TABLE binding
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     auction_id INT,

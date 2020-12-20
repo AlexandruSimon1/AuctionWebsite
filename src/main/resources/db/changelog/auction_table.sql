@@ -10,5 +10,5 @@ CREATE TABLE auction
     start_date    DATETIME,
     end_date      DATETIME,
     FOREIGN KEY (category_id)
-        REFERENCES category (id)
+        REFERENCES category (id) ON DELETE SET NULL ON UPDATE CASCADE
 )

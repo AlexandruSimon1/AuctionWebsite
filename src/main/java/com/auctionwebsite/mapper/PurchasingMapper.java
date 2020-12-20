@@ -20,5 +20,8 @@ public interface PurchasingMapper {
     @InheritInverseConfiguration
     Purchasing fromPurchasingDto(PurchasingDTO purchasingDTO, @Context NotificatorMappingContext context);
 
-    List<Purchasing> fromPurchasingsDto(List<PurchasingDTO> purchasingDTOList, @Context NotificatorMappingContext context);
+    List<Purchasing> toPurchases(List<Purchasing> purchases, @Context NotificatorMappingContext context);
+
+    @InheritInverseConfiguration
+    List<Purchasing> fromPurchasesDto(List<PurchasingDTO> purchasingDTOList, @Context NotificatorMappingContext context);
 }

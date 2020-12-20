@@ -1,10 +1,12 @@
 package com.auctionwebsite.model;
 
+import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, updatable = false)
@@ -28,10 +30,25 @@ public class User {
     private Date creationDate;
     @Column(name = "type")
     private String type;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(insertable = false, updatable = false, name = "id", referencedColumnName = "id")
     private Address address;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Purchasing> purchasingList;
-    @OneToMany(mappedBy = "user")
-    private List<Bidding> biddingList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Binding> bindingList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equal(getId(), user.getId()) &&
+                Objects.equal(getAddress(), user.getAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId(), getAddress());
+    }
 }

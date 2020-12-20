@@ -47,14 +47,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         updateUser.setName(userDTO.getName());
         updateUser.setAddress(AddressMapper.INSTANCE
-                .fromAddressDto(userDTO.getAddressDTO(), new NotificatorMappingContext()));
+                .fromAddressDto(userDTO.getAddress(), new NotificatorMappingContext()));
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setType(userDTO.getType());
         updateUser.setPassword(userDTO.getPassword());
-        updateUser.setBiddingList(BiddingMapper.INSTANCE
-                .fromBiddingsDto(userDTO.getBiddingDTOList(), new NotificatorMappingContext()));
+        updateUser.setBindingList(BiddingMapper.INSTANCE
+                .fromBindingsDto(userDTO.getBidding(), new NotificatorMappingContext()));
         updateUser.setPurchasingList(PurchasingMapper.INSTANCE
-                .fromPurchasingsDto(userDTO.getPurchasingDTOList(), new NotificatorMappingContext()));
+                .fromPurchasesDto(userDTO.getPurchasing(), new NotificatorMappingContext()));
         userRepository.save(updateUser);
         return UserMapper.INSTANCE.toUserDto(updateUser, new NotificatorMappingContext());
     }

@@ -15,7 +15,7 @@ public class UserDTO {
     private String name;
     private Date creationDate;
     private String type;
-    private AddressDTO addressDTO;
-    private List<BiddingDTO> biddingDTOList;
-    private List<PurchasingDTO> purchasingDTOList;
+    private AddressDTO address;
+    private List<BiddingDTO> bidding;
+    private List<PurchasingDTO> purchasing;
 }

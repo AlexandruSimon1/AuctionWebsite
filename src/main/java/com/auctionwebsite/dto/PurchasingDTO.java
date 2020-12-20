@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class PurchasingDTO {
     private int id;
-    private AuctionDTO auctionDTO;
-    private UserDTO userDTO;
+    private AuctionDTO auction;
+    private UserDTO user;
 }

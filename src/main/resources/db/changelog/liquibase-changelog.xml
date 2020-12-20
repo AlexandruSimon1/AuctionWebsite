@@ -10,6 +10,6 @@
     <include file="db/changelog/address_table.sql"/>
     <include file="db/changelog/category_table.sql"/>
     <include file="db/changelog/auction_table.sql"/>
-    <include file="db/changelog/bidding_table.sql"/>
+    <include file="db/changelog/binding_table.sql"/>
     <include file="db/changelog/purchasing_table"/>
 </databaseChangeLog>
