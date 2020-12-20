@@ -16,6 +16,6 @@ public class UserDTO {
     private Date creationDate;
     private String type;
     private AddressDTO address;
-    private List<BiddingDTO> bidding;
+    private List<BindingDTO> bidding;
     private List<PurchasingDTO> purchasing;
 }

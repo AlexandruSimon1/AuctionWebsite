@@ -3,7 +3,7 @@ package com.auctionwebsite.dto;
 import lombok.Data;
 
 @Data
-public class BiddingDTO {
+public class BindingDTO {
     private int id;
     private AuctionDTO auction;
     private UserDTO user;
