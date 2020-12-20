@@ -1,18 +1,13 @@
 package com.auctionwebsite.service.impl;
 
-import com.auctionwebsite.dto.BiddingDTO;
-import com.auctionwebsite.dto.PurchasingDTO;
 import com.auctionwebsite.dto.UserDTO;
 import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
 import com.auctionwebsite.mapper.*;
-import com.auctionwebsite.model.Bidding;
-import com.auctionwebsite.model.Purchasing;
 import com.auctionwebsite.model.User;
 import com.auctionwebsite.repository.UserRepository;
 import com.auctionwebsite.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,14 +46,15 @@ public class UserServiceImpl implements UserService {
         final User updateUser = userRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         updateUser.setName(userDTO.getName());
-        updateUser.setAddress(AddressMapper.INSTANCE.fromAddressDto(userDTO.getAddressDTO(), new NotificatorMappingContext()));
+        updateUser.setAddress(AddressMapper.INSTANCE
+                .fromAddressDto(userDTO.getAddressDTO(), new NotificatorMappingContext()));
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setType(userDTO.getType());
         updateUser.setPassword(userDTO.getPassword());
-        updateUser.setBiddingList((List<Bidding>) BiddingMapper.INSTANCE.fromBiddingDto((BiddingDTO)
-                userDTO.getBiddingDTOList(), new NotificatorMappingContext()));
-        updateUser.setPurchasingList((List<Purchasing>) PurchasingMapper.INSTANCE.fromPurchasingDto((PurchasingDTO)
-                userDTO.getPurchasingDTOList(), new NotificatorMappingContext()));
+        updateUser.setBiddingList(BiddingMapper.INSTANCE
+                .fromBiddingsDto(userDTO.getBiddingDTOList(), new NotificatorMappingContext()));
+        updateUser.setPurchasingList(PurchasingMapper.INSTANCE
+                .fromPurchasingsDto(userDTO.getPurchasingDTOList(), new NotificatorMappingContext()));
         userRepository.save(updateUser);
         return UserMapper.INSTANCE.toUserDto(updateUser, new NotificatorMappingContext());
     }
@@ -66,7 +62,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO deleteUserById(int id) {
         final User deleteUser = userRepository.findById(id)
-                .orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
+                .orElseThrow(()-> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
+        userRepository.deleteById(id);
         return UserMapper.INSTANCE.toUserDto(deleteUser, new NotificatorMappingContext());
     }
 }

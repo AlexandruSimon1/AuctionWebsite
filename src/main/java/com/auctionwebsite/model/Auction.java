@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -35,8 +34,8 @@ public class Auction {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-    @OneToMany(mappedBy = "auction")
-    private List<Bidding> biddingList;
+    @OneToOne(mappedBy = "auction")
+    private Bidding bidding;
     @OneToOne(mappedBy = "auction")
     private Purchasing purchasing;
 }
