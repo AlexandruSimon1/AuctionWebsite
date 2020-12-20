@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -3,10 +3,8 @@ package com.auctionwebsite.dto;
 import lombok.Data;
 
 @Data
-public class AddressDTO {
+public class BindingDTO {
     private int id;
+    private AuctionDTO auction;
     private UserDTO user;
-    private String province;
-    private String city;
-    private String address;
 }

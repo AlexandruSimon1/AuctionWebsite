@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "auction")
-public class Auction {
+public class Auction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,7 +36,7 @@ public class Auction {
     @JoinColumn(name = "category_id")
     private Category category;
     @OneToOne(mappedBy = "auction")
-    private Bidding bidding;
+    private Binding binding;
     @OneToOne(mappedBy = "auction")
     private Purchasing purchasing;
 }
