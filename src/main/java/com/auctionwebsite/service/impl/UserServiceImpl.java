@@ -11,6 +11,7 @@ import com.auctionwebsite.model.Purchasing;
 import com.auctionwebsite.model.User;
 import com.auctionwebsite.repository.UserRepository;
 import com.auctionwebsite.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
 public class UserServiceImpl implements UserService {
-    @Autowired
     private final UserRepository userRepository;
 
     @Override

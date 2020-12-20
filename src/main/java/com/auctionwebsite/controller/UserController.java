@@ -2,7 +2,7 @@ package com.auctionwebsite.controller;
 
 import com.auctionwebsite.dto.UserDTO;
 import com.auctionwebsite.service.UserService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/api/v1/users")
 public class UserController {
-    @Autowired
     private final UserService userService;
 
     //Mapping name
