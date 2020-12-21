@@ -48,7 +48,6 @@ public class AddressServiceImpl implements AddressService {
     public AddressDTO updateAddressById(AddressDTO addressDTO, int id) {
         final Address updateAddress = addressRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
-        updateAddress.setUser(UserMapper.INSTANCE.fromUserDto(addressDTO.getUser(), new NotificatorMappingContext()));
         updateAddress.setCity(addressDTO.getCity());
         updateAddress.setProvince(addressDTO.getAddress());
         updateAddress.setAddress(addressDTO.getAddress());
