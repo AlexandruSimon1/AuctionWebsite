@@ -1,4 +1,4 @@
-CREATE TABLE binding
+CREATE TABLE bidding
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     auction_id INT,

@@ -36,7 +36,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Purchasing> purchasingList;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Binding> bindingList;
+    private List<Bidding> biddingList;
 
     @Override
     public boolean equals(Object o) {
