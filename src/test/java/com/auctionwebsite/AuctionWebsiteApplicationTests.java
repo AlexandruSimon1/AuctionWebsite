@@ -1,4 +1,4 @@
-package auction_website.auctionwebsite;
+package com.auctionwebsite;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

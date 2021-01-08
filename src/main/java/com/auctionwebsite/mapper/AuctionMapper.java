@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 //Mapper is used in order to be able to export and import the information from data base and in data base
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AuctionMapper {
@@ -17,4 +19,10 @@ public interface AuctionMapper {
 
     @InheritInverseConfiguration
     Auction fromAuctionDto(AuctionDTO auctionDTO, @Context NotificatorMappingContext context);
+
+
+    List<AuctionDTO> toAuctionsDto(List<Auction> auctions, @Context NotificatorMappingContext context);
+
+    @InheritInverseConfiguration
+    List<Auction> fromAuctionsDto(List<AuctionDTO> auctionDTOList, @Context NotificatorMappingContext context);
 }
