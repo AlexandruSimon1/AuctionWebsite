@@ -36,7 +36,7 @@ public class Auction implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
     @OneToOne(mappedBy = "auction")
-    private Binding binding;
+    private Bidding bidding;
     @OneToOne(mappedBy = "auction")
     private Purchasing purchasing;
 }
