@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         updateUser.setType(userDTO.getType());
         updateUser.setPassword(userDTO.getPassword());
         updateUser.setBiddingList(BiddingMapper.INSTANCE
-                .fromBindingsDto(userDTO.getBidding(), new NotificatorMappingContext()));
+                .fromBiddingsDto(userDTO.getBidding(), new NotificatorMappingContext()));
         updateUser.setPurchasingList(PurchasingMapper.INSTANCE
                 .fromPurchasesDto(userDTO.getPurchasing(), new NotificatorMappingContext()));
         userRepository.save(updateUser);

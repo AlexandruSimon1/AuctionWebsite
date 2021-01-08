@@ -20,8 +20,8 @@ public interface BiddingMapper {
     @InheritInverseConfiguration
     Bidding fromBiddingDto(BiddingDTO biddingDTO, @Context NotificatorMappingContext context);
 
-    List<BiddingDTO> toBindingsDto(List<Bidding> biddings, @Context NotificatorMappingContext context);
+    List<BiddingDTO> toBiddingsDto(List<Bidding> biddings, @Context NotificatorMappingContext context);
 
     @InheritInverseConfiguration
-    List<Bidding> fromBindingsDto(List<BiddingDTO> biddingDTOList, @Context NotificatorMappingContext context);
+    List<Bidding> fromBiddingsDto(List<BiddingDTO> biddingDTOList, @Context NotificatorMappingContext context);
 }
