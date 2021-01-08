@@ -38,6 +38,7 @@ public class UserServiceImplTest {
         userService = new UserServiceImpl(userRepository);
 
         address = new Address();
+        address.setId(ID_VALUE);
         address.setCity("Douala");
         address.setProvince("Cameron");
         address.setAddress("United");
@@ -48,6 +49,7 @@ public class UserServiceImplTest {
         firstUser.setType("user");
         firstUser.setAddress(address);
         firstUser.setEmail("max@cameron.com");
+        firstUser.setPassword("test");
 
         secondUser = new User();
         secondUser.setId(1);
@@ -55,6 +57,7 @@ public class UserServiceImplTest {
         secondUser.setType("user");
         secondUser.setAddress(address);
         secondUser.setEmail("max@cameron.com");
+        secondUser.setPassword("test");
     }
 
     @Test
@@ -119,21 +122,29 @@ public class UserServiceImplTest {
         verify(userRepository, times(1)).save(firstUser);
     }
 
-//    @Test
-//    void createAdministrator() {
-//        UserDTO dto = new UserDTO();
-//        dto.setId(1);
-//        dto.setName("Max Cameron");
-//        dto.setType("user");
-//        dto.setEmail("max@cameron.com");
-//
-//        when(userRepository.save(firstUser)).thenReturn(firstUser);
-//        UserDTO userDTO = userService.createUser(dto);
-//
-//        assertNotNull(firstUser);
-//        assertEquals(firstUser.getId(), userDTO.getId());
-//        assertEquals(firstUser.getName(), userDTO.getName());
-//        assertEquals(firstUser.getType(), userDTO.getType());
-//        assertEquals(firstUser.getEmail(), userDTO.getEmail());
-//    }
+    @Test
+    void createAdministrator() {
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setId(ID_VALUE);
+        addressDTO.setCity("Douala");
+        addressDTO.setProvince("Cameron");
+        addressDTO.setAddress("United");
+
+        UserDTO dto = new UserDTO();
+        dto.setId(1);
+        dto.setName("Max Cameron");
+        dto.setType("user");
+        dto.setEmail("max@cameron.com");
+        dto.setPassword("test");
+        dto.setAddress(addressDTO);
+
+        when(userRepository.save(firstUser)).thenReturn(firstUser);
+        UserDTO userDTO = userService.createUser(dto);
+
+        assertNotNull(firstUser);
+        assertEquals(firstUser.getId(), userDTO.getId());
+        assertEquals(firstUser.getName(), userDTO.getName());
+        assertEquals(firstUser.getType(), userDTO.getType());
+        assertEquals(firstUser.getEmail(), userDTO.getEmail());
+    }
 }
