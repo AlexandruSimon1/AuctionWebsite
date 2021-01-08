@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -35,8 +36,8 @@ public class Auction implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-    @OneToOne(mappedBy = "auction")
-    private Bidding bidding;
+    @OneToMany(mappedBy = "auction")
+    private List<Bidding> biddingList;
     @OneToOne(mappedBy = "auction")
     private Purchasing purchasing;
 }

@@ -24,7 +24,7 @@ public class Bidding implements Serializable {
     private User user;
 
     @ToString.Exclude
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "auction_id")
     private Auction auction;
 }
