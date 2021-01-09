@@ -29,6 +29,8 @@ public class AuctionServiceImplTest {
     private static final int ID_VALUE = 1;
     private Auction firstAuction;
     private Auction secondAuction;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     @InjectMocks
     private AuctionServiceImpl auctionService;
     @Mock
@@ -38,13 +40,15 @@ public class AuctionServiceImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         auctionService = new AuctionServiceImpl(auctionRepository);
+        startDate = LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest"));
+        endDate = LocalDateTime.ofInstant(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS), ZoneId.of("Europe/Bucharest"));
 
         firstAuction = new Auction();
         firstAuction.setId(ID_VALUE);
         firstAuction.setTitle("test");
         firstAuction.setDescription("Test");
-        firstAuction.setStartDate(LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest")));
-        firstAuction.setEndDate(LocalDateTime.ofInstant(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS), ZoneId.of("Europe/Bucharest")));
+        firstAuction.setStartDate(startDate);
+        firstAuction.setEndDate(endDate);
 
         secondAuction = new Auction();
         secondAuction.setId(ID_VALUE);
@@ -79,7 +83,7 @@ public class AuctionServiceImplTest {
     }
 
     @Test
-    void deletePurchasingById() {
+    void deleteAuctionById() {
         //when
         when(auctionRepository.findById(ID_VALUE)).thenReturn(Optional.of(firstAuction));
         auctionRepository.deleteById(ID_VALUE);
@@ -92,7 +96,7 @@ public class AuctionServiceImplTest {
     }
 
     @Test
-    void updatePurchasingById() {
+    void updateAuctionById() {
         //given
         AuctionDTO dto = new AuctionDTO();
         dto.setId(ID_VALUE);
@@ -111,14 +115,14 @@ public class AuctionServiceImplTest {
     }
 
 //    @Test
-//    void createPurchasing() {
+//    void createAuction() {
 //        //given
 //        AuctionDTO dto = new AuctionDTO();
 //        dto.setId(ID_VALUE);
 //        dto.setTitle("test");
 //        dto.setDescription("Test");
-//        dto.setStartDate(firstAuction.getStartDate());
-//        dto.setEndDate(firstAuction.getEndDate());
+//        dto.setStartDate(startDate);
+//        dto.setEndDate(endDate);
 //        //when
 //        when(auctionRepository.save(firstAuction)).thenReturn(firstAuction);
 //        AuctionDTO auctionDTO = auctionService.createAuction(dto);

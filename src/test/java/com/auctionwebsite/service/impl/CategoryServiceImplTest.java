@@ -83,8 +83,9 @@ public class CategoryServiceImplTest {
         assertEquals(firstCategory.getName(), categoryDTO.getName());
         assertEquals(firstCategory.getDescription(), categoryDTO.getDescription());
     }
+
     @Test
-    void updateAddressById() {
+    void updateCategoryById() {
         //given
         CategoryDTO dto = new CategoryDTO();
         dto.setId(ID_VALUE);
@@ -101,8 +102,9 @@ public class CategoryServiceImplTest {
         assertEquals(firstCategory.getDescription(), updatedCategory.getDescription());
         verify(categoryRepository, times(1)).save(firstCategory);
     }
+
     @Test
-    void createAddress() {
+    void createCategory() {
         //given
         CategoryDTO dto = new CategoryDTO();
         dto.setId(ID_VALUE);

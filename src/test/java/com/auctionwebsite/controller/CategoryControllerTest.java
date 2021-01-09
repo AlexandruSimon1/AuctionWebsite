@@ -1,8 +1,7 @@
 package com.auctionwebsite.controller;
 
-import com.auctionwebsite.dto.AddressDTO;
-import com.auctionwebsite.dto.UserDTO;
-import com.auctionwebsite.service.impl.UserServiceImpl;
+import com.auctionwebsite.dto.CategoryDTO;
+import com.auctionwebsite.service.impl.CategoryServiceImpl;
 import com.auctionwebsite.utils.ExceptionController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
@@ -26,6 +25,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,70 +34,60 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 //This type of testing is used in case when we don't have any kind of security in our REST API
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = UserController.class)
-public class UserControllerTest {
+@WebMvcTest(controllers = CategoryController.class)
+public class CategoryControllerTest {
     private static final int ID_VALUE = 1;
     @Autowired
-    private UserController userController;
+    private CategoryController categoryController;
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private UserServiceImpl userService;
-    private UserDTO firstUser;
-    private UserDTO secondUser;
-    private AddressDTO address;
+    private CategoryServiceImpl categoryService;
+    private CategoryDTO firstCategory;
+    private CategoryDTO secondCategory;
     private ObjectMapper mapper = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
         //setup the controller to MockMvc in order to have access to the information from the REST API
-        this.mockMvc = MockMvcBuilders.standaloneSetup(userController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
                 .setControllerAdvice(new ExceptionController())
                 .alwaysExpect(MockMvcResultMatchers.content()
                         .contentType(MediaType.APPLICATION_JSON))
                 .build();
         //Inserting the data in order to be able to do the test of the endpoints
-        address = new AddressDTO();
-        address.setCity("Douala");
-        address.setProvince("Cameron");
-        address.setAddress("United");
+        firstCategory = new CategoryDTO();
+        firstCategory.setId(ID_VALUE);
+        firstCategory.setName("Test");
+        firstCategory.setDescription("PC");
 
-        firstUser = new UserDTO();
-        firstUser.setId(1);
-        firstUser.setName("Max Cameron");
-        firstUser.setType("user");
-        firstUser.setAddress(address);
-        firstUser.setEmail("max@cameron.com");
-
-        secondUser = new UserDTO();
-        secondUser.setId(1);
-        secondUser.setName("Max Cameron");
-        secondUser.setType("user");
-        secondUser.setAddress(address);
-        secondUser.setEmail("max@cameron.com");
+        secondCategory = new CategoryDTO();
+        secondCategory.setId(ID_VALUE);
+        secondCategory.setName("Test");
+        secondCategory.setDescription("PC");
     }
 
     @Test
-    void getAllUsers() throws Exception {
+    void getAllCategories() throws Exception {
         //given
-        List<UserDTO> userDTOList = new ArrayList<>();
-        userDTOList.add(firstUser);
-        userDTOList.add(secondUser);
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        categoryDTOList.add(firstCategory);
+        categoryDTOList.add(secondCategory);
         //when
-        when(userService.getAllUsers()).thenReturn(userDTOList);
+        when(categoryService.getAllCategories()).thenReturn(categoryDTOList);
         //then
-        mockMvc.perform(get("/api/v1/users")).andDo(print()).
+        mockMvc.perform(get("/api/v1/categories")).andDo(print()).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
-    void getUserById() throws Exception {
+    void getCategoryById() throws Exception {
         //when
-        when(userService.getUserById(anyInt())).thenReturn(firstUser);
+        when(categoryService.getCategoryById(anyInt())).thenReturn(firstCategory);
         //then
-        this.mockMvc.perform(get("/api/v1/users/{userId}", ID_VALUE)
+        this.mockMvc.perform(get("/api/v1/categories/{categoryId}", ID_VALUE)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -105,37 +95,37 @@ public class UserControllerTest {
     }
 
     @Test
-    void deleteUserById() throws Exception {
+    void updateCategoryById() throws Exception {
         //when
-        when(userService.deleteUserById(ID_VALUE)).thenReturn(firstUser);
+        when(categoryService.updateCategoryById(any(), anyInt())).thenReturn(secondCategory);
         //then
-        this.mockMvc.perform(delete("/api/v1/users/{userId}", firstUser.getId()))
-                .andExpect(status().is2xxSuccessful());
-        verify(userService, times(1)).deleteUserById(ID_VALUE);
-    }
-
-    @Test
-    void updateUserById() throws Exception {
-        //when
-        when(userService.updateUserById(any(), anyInt())).thenReturn(secondUser);
-        //then
-        this.mockMvc.perform(put("/api/v1/users/{userId}", firstUser.getId())
+        this.mockMvc.perform(put("/api/v1/categories/{categoryId}", firstCategory.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(mapper.writeValueAsString(secondUser)))
+                .content(mapper.writeValueAsString(secondCategory)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("email", Matchers.is(secondUser.getEmail())));
+                .andExpect(jsonPath("name", Matchers.is(secondCategory.getName())));
     }
 
     @Test
-    void createUser() throws Exception {
+    void deleteCategoryById() throws Exception {
         //when
-        when(userService.createUser(Mockito.any(UserDTO.class))).thenReturn(firstUser);
+        when(categoryService.deleteCategoryById(ID_VALUE)).thenReturn(firstCategory);
         //then
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/users").
+        this.mockMvc.perform(delete("/api/v1/categories/{categoryId}", firstCategory.getId()))
+                .andExpect(status().is2xxSuccessful());
+        verify(categoryService, times(1)).deleteCategoryById(ID_VALUE);
+    }
+
+    @Test
+    void createCategory() throws Exception {
+        //when
+        when(categoryService.createCategory(Mockito.any(CategoryDTO.class))).thenReturn(firstCategory);
+        //then
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/categories").
                 contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON).characterEncoding("UTF-8")
-                .content(this.mapper.writeValueAsBytes(firstUser));
-        mockMvc.perform(builder).andExpect(status().isCreated()).andExpect(jsonPath("$.name", is("Max Cameron"))).
-                andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(firstUser)));
+                .content(this.mapper.writeValueAsBytes(firstCategory));
+        mockMvc.perform(builder).andExpect(status().isCreated()).andExpect(jsonPath("$.name", is("Test"))).
+                andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(firstCategory)));
     }
 }
