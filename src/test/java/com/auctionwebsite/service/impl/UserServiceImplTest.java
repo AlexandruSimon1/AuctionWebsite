@@ -123,7 +123,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void createAdministrator() {
+    void createUser() {
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setId(ID_VALUE);
         addressDTO.setCity("Douala");

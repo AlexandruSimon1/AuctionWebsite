@@ -44,7 +44,7 @@ public class UserController {
     @PutMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO updateUser(@PathVariable int userId, @RequestBody UserDTO userDTO) {
+    public UserDTO updateUserById(@PathVariable int userId, @RequestBody UserDTO userDTO) {
         return userService.updateUserById(userDTO, userId);
     }
 

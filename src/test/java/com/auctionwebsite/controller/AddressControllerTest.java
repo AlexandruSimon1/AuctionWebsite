@@ -1,8 +1,7 @@
 package com.auctionwebsite.controller;
 
 import com.auctionwebsite.dto.AddressDTO;
-import com.auctionwebsite.dto.UserDTO;
-import com.auctionwebsite.service.impl.UserServiceImpl;
+import com.auctionwebsite.service.impl.AddressServiceImpl;
 import com.auctionwebsite.utils.ExceptionController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
@@ -26,6 +25,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,70 +34,62 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 //This type of testing is used in case when we don't have any kind of security in our REST API
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = UserController.class)
-public class UserControllerTest {
+@WebMvcTest(controllers = AddressController.class)
+public class AddressControllerTest {
     private static final int ID_VALUE = 1;
     @Autowired
-    private UserController userController;
+    private AddressController addressController;
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private UserServiceImpl userService;
-    private UserDTO firstUser;
-    private UserDTO secondUser;
-    private AddressDTO address;
+    private AddressServiceImpl addressService;
+    private AddressDTO firstAddress;
+    private AddressDTO secondAddress;
     private ObjectMapper mapper = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
         //setup the controller to MockMvc in order to have access to the information from the REST API
-        this.mockMvc = MockMvcBuilders.standaloneSetup(userController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(addressController)
                 .setControllerAdvice(new ExceptionController())
                 .alwaysExpect(MockMvcResultMatchers.content()
                         .contentType(MediaType.APPLICATION_JSON))
                 .build();
         //Inserting the data in order to be able to do the test of the endpoints
-        address = new AddressDTO();
-        address.setCity("Douala");
-        address.setProvince("Cameron");
-        address.setAddress("United");
+        firstAddress = new AddressDTO();
+        firstAddress.setId(ID_VALUE);
+        firstAddress.setCity("Douala");
+        firstAddress.setProvince("Cameron");
+        firstAddress.setAddress("United");
 
-        firstUser = new UserDTO();
-        firstUser.setId(1);
-        firstUser.setName("Max Cameron");
-        firstUser.setType("user");
-        firstUser.setAddress(address);
-        firstUser.setEmail("max@cameron.com");
-
-        secondUser = new UserDTO();
-        secondUser.setId(1);
-        secondUser.setName("Max Cameron");
-        secondUser.setType("user");
-        secondUser.setAddress(address);
-        secondUser.setEmail("max@cameron.com");
+        secondAddress = new AddressDTO();
+        secondAddress.setId(ID_VALUE);
+        secondAddress.setCity("Douala");
+        secondAddress.setProvince("Cameron");
+        secondAddress.setAddress("United");
     }
 
     @Test
-    void getAllUsers() throws Exception {
+    void getAllAddresses() throws Exception {
         //given
-        List<UserDTO> userDTOList = new ArrayList<>();
-        userDTOList.add(firstUser);
-        userDTOList.add(secondUser);
+        List<AddressDTO> addressDTOList = new ArrayList<>();
+        addressDTOList.add(firstAddress);
+        addressDTOList.add(secondAddress);
         //when
-        when(userService.getAllUsers()).thenReturn(userDTOList);
+        when(addressService.getAllAddresses()).thenReturn(addressDTOList);
         //then
-        mockMvc.perform(get("/api/v1/users")).andDo(print()).
+        mockMvc.perform(get("/api/v1/addresses")).andDo(print()).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
-    void getUserById() throws Exception {
+    void getAddressById() throws Exception {
         //when
-        when(userService.getUserById(anyInt())).thenReturn(firstUser);
+        when(addressService.getAddressById(anyInt())).thenReturn(firstAddress);
         //then
-        this.mockMvc.perform(get("/api/v1/users/{userId}", ID_VALUE)
+        this.mockMvc.perform(get("/api/v1/addresses/{addressId}", ID_VALUE)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -105,37 +97,37 @@ public class UserControllerTest {
     }
 
     @Test
-    void deleteUserById() throws Exception {
+    void updateAddressById() throws Exception {
         //when
-        when(userService.deleteUserById(ID_VALUE)).thenReturn(firstUser);
+        when(addressService.updateAddressById(any(), anyInt())).thenReturn(secondAddress);
         //then
-        this.mockMvc.perform(delete("/api/v1/users/{userId}", firstUser.getId()))
-                .andExpect(status().is2xxSuccessful());
-        verify(userService, times(1)).deleteUserById(ID_VALUE);
-    }
-
-    @Test
-    void updateUserById() throws Exception {
-        //when
-        when(userService.updateUserById(any(), anyInt())).thenReturn(secondUser);
-        //then
-        this.mockMvc.perform(put("/api/v1/users/{userId}", firstUser.getId())
+        this.mockMvc.perform(put("/api/v1/addresses/{addressId}", firstAddress.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(mapper.writeValueAsString(secondUser)))
+                .content(mapper.writeValueAsString(secondAddress)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("email", Matchers.is(secondUser.getEmail())));
+                .andExpect(jsonPath("city", Matchers.is(secondAddress.getCity())));
     }
 
     @Test
-    void createUser() throws Exception {
+    void deleteAddressById() throws Exception {
         //when
-        when(userService.createUser(Mockito.any(UserDTO.class))).thenReturn(firstUser);
+        when(addressService.deleteAddressById(ID_VALUE)).thenReturn(firstAddress);
         //then
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/users").
+        this.mockMvc.perform(delete("/api/v1/addresses/{addressId}", firstAddress.getId()))
+                .andExpect(status().is2xxSuccessful());
+        verify(addressService, times(1)).deleteAddressById(ID_VALUE);
+    }
+
+    @Test
+    void createAddress() throws Exception {
+        //when
+        when(addressService.createAddress(Mockito.any(AddressDTO.class))).thenReturn(firstAddress);
+        //then
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/addresses").
                 contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON).characterEncoding("UTF-8")
-                .content(this.mapper.writeValueAsBytes(firstUser));
-        mockMvc.perform(builder).andExpect(status().isCreated()).andExpect(jsonPath("$.name", is("Max Cameron"))).
-                andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(firstUser)));
+                .content(this.mapper.writeValueAsBytes(firstAddress));
+        mockMvc.perform(builder).andExpect(status().isCreated()).andExpect(jsonPath("$.city", is("Douala"))).
+                andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(firstAddress)));
     }
 }

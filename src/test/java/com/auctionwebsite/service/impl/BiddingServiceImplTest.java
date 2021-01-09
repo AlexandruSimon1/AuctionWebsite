@@ -28,6 +28,7 @@ public class BiddingServiceImplTest {
     private BiddingServiceImpl biddingService;
     @Mock
     private BiddingRepository biddingRepository;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
