@@ -6,5 +6,5 @@ CREATE TABLE address
     city     VARCHAR(255),
     address  VARCHAR(255),
     FOREIGN KEY (user_id)
-        REFERENCES user (id) ON DELETE SET NULL ON UPDATE CASCADE
+        REFERENCES user (id)
 )
