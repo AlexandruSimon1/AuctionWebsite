@@ -50,7 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new ApplicationException(ExceptionType.CATEGORY_NOT_FOUND));
         updateCategory.setName(categoryDTO.getName());
         updateCategory.setDescription(categoryDTO.getDescription());
-        updateCategory.setAuctionList(AuctionMapper.INSTANCE.fromAuctionsDto(categoryDTO.getAuction(), new NotificatorMappingContext()));
         categoryRepository.save(updateCategory);
         return CategoryMapper.INSTANCE.toCategoryDto(updateCategory, new NotificatorMappingContext());
     }

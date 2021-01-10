@@ -1,5 +1,7 @@
 package com.auctionwebsite.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,10 +23,26 @@ public class Purchasing implements Serializable {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = {"bidding", "purchasing"}, ignoreUnknown = true)
     private User user;
 
     @ToString.Exclude
     @OneToOne
     @JoinColumn(name = "auction_id")
     private Auction auction;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Purchasing)) return false;
+        Purchasing purchasing = (Purchasing) o;
+        return Objects.equal(getId(), purchasing.getId()) &&
+                Objects.equal(getAuction(), purchasing.getAuction()) &&
+                Objects.equal(getUser(), purchasing.getUser());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId(), getAuction(), getUser());
+    }
 }

@@ -61,8 +61,6 @@ public class AuctionServiceImpl implements AuctionService {
         updateAuction.setStartDate(auctionDTO.getStartDate());
         updateAuction.setEndDate(auctionDTO.getEndDate());
         updateAuction.setCategory(CategoryMapper.INSTANCE.fromCategoryDto(auctionDTO.getCategory(), new NotificatorMappingContext()));
-        updateAuction.setBiddingList(BiddingMapper.INSTANCE.fromBiddingsDto(auctionDTO.getBidding(), new NotificatorMappingContext()));
-        updateAuction.setPurchasing(PurchasingMapper.INSTANCE.fromPurchasingDto(auctionDTO.getPurchasing(), new NotificatorMappingContext()));
         auctionRepository.save(updateAuction);
         return AuctionMapper.INSTANCE.toAuctionDto(updateAuction, new NotificatorMappingContext());
     }

@@ -18,9 +18,9 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @JsonIgnore
     @ToString.Exclude
-    @OneToOne(mappedBy = "address")
+    @OneToOne
+    @JoinColumn (name = "user_id")
     private User user;
     @Column(name = "province")
     private String province;
