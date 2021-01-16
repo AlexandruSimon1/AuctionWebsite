@@ -40,7 +40,7 @@ public class Auction implements Serializable {
     @Column(name = "end_date")
     private LocalDateTime endDate;
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)

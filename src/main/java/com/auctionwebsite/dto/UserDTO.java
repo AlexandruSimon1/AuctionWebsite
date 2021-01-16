@@ -1,5 +1,6 @@
 package com.auctionwebsite.dto;
 
+import com.auctionwebsite.model.UserRole;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -18,4 +19,5 @@ public class UserDTO {
     private AddressDTO address;
     private List<BiddingDTO> bidding;
     private List<PurchasingDTO> purchasing;
+    private UserRole userRoleDTO;
 }

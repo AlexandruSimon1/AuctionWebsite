@@ -20,7 +20,7 @@ public class Address implements Serializable {
     private int id;
     @ToString.Exclude
     @OneToOne
-    @JoinColumn (name = "user_id")
+    @JoinColumn (insertable = false, updatable = false,name = "id", referencedColumnName = "id")
     private User user;
     @Column(name = "province")
     private String province;

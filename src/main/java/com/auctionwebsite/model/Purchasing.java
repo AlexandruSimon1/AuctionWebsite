@@ -22,13 +22,13 @@ public class Purchasing implements Serializable {
     private int id;
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
     @JsonIgnoreProperties(value = {"bidding", "purchasing"}, ignoreUnknown = true)
     private User user;
 
     @ToString.Exclude
     @OneToOne
-    @JoinColumn(name = "auction_id")
+    @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
     private Auction auction;
 
     @Override
