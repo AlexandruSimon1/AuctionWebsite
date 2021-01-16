@@ -25,13 +25,13 @@ public class BiddingController {
         return biddingService.getAllBiddings();
     }
 
-//    //Mapping name
-//    @GetMapping(value = "/{biddingId}")
-//    //Response status is used for providing the status of our request
-//    @ResponseStatus(HttpStatus.OK)
-//    public BiddingDTO getBiddingById(@PathVariable int biddingId) {
-//        return biddingService.getBiddingById(biddingId);
-//    }
+    //Mapping name
+    @GetMapping(value = "/{biddingId}")
+    //Response status is used for providing the status of our request
+    @ResponseStatus(HttpStatus.OK)
+    public BiddingDTO getBiddingById(@PathVariable int biddingId) {
+        return biddingService.getBiddingById(biddingId);
+    }
 
     //Mapping name
     @PostMapping
