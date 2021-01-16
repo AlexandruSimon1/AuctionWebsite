@@ -14,4 +14,6 @@ public interface BiddingService {
     BiddingDTO updateBiddingById(BiddingDTO biddingDTO, int id);
 
     BiddingDTO deleteBiddingById(int id);
+
+    List<BiddingDTO> findBiddingByUserId(int id);
 }

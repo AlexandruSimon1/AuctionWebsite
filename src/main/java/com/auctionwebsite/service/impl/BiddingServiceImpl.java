@@ -58,4 +58,9 @@ public class BiddingServiceImpl implements BiddingService {
                 .orElseThrow(() -> new ApplicationException(ExceptionType.BIDDING_NOT_FOUND));
         return BiddingMapper.INSTANCE.toBiddingDto(deleteBidding, new NotificatorMappingContext());
     }
+
+    @Override
+    public List<BiddingDTO> findBiddingByUserId(int id) {
+        return BiddingMapper.INSTANCE.toBiddingsDto(biddingRepository.findAllByUserId(id), new NotificatorMappingContext());
+    }
 }
