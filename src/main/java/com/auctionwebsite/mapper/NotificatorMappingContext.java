@@ -7,7 +7,7 @@ import org.mapstruct.TargetType;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-//Using an @Context parameter with a type that provides its own @ BeforeMapping methods to handle cycles in Notificator structures
+//Is used for mapping the data before every mapping request that is made and can be used only by abstract classes
 public class NotificatorMappingContext {
     private final Map<Object, Object> knownInstances = new IdentityHashMap<>();
 
