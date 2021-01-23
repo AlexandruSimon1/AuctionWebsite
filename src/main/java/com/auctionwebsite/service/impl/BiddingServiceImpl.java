@@ -56,6 +56,7 @@ public class BiddingServiceImpl implements BiddingService {
     public BiddingDTO deleteBiddingById(int id) {
         final Bidding deleteBidding = biddingRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.BIDDING_NOT_FOUND));
+        biddingRepository.delete(deleteBidding);
         return BiddingMapper.INSTANCE.toBiddingDto(deleteBidding, new NotificatorMappingContext());
     }
 
