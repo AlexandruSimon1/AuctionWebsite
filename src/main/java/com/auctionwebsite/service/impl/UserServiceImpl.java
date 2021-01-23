@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO deleteUserById(int id) {
         final User deleteUser = userRepository.findById(id)
                 .orElseThrow(()-> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
-        userRepository.deleteById(id);
+        userRepository.delete(deleteUser);
         return UserMapper.INSTANCE.toUserDto(deleteUser, new NotificatorMappingContext());
     }
 }

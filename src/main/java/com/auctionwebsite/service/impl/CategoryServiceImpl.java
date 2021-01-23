@@ -58,6 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDTO deleteCategoryById(int id) {
         final Category deleteCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.CATEGORY_NOT_FOUND));
+        categoryRepository.delete(deleteCategory);
         return CategoryMapper.INSTANCE.toCategoryDto(deleteCategory, new NotificatorMappingContext());
     }
 }

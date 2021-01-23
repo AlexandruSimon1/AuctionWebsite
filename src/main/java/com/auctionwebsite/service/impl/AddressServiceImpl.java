@@ -59,6 +59,7 @@ public class AddressServiceImpl implements AddressService {
     public AddressDTO deleteAddressById(int id) {
         final Address deleteAddress = addressRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
+        addressRepository.delete(deleteAddress);
         return AddressMapper.INSTANCE.toAddressDto(deleteAddress, new NotificatorMappingContext());
     }
 }

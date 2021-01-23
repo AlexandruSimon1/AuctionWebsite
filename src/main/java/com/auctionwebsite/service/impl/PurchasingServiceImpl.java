@@ -56,6 +56,7 @@ public class PurchasingServiceImpl implements PurchasingService {
     public PurchasingDTO deletePurchasingById(int id) {
         final Purchasing deletePurchasing = purchasingRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.PURCHASING_NOT_FOUND));
+        purchasingRepository.delete(deletePurchasing);
         return PurchasingMapper.INSTANCE.toPurchasingDto(deletePurchasing, new NotificatorMappingContext());
     }
 }

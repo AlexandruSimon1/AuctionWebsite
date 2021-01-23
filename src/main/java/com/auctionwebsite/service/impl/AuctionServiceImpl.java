@@ -69,6 +69,7 @@ public class AuctionServiceImpl implements AuctionService {
     public AuctionDTO deleteAuctionById(int id) {
         final Auction deleteAuction = auctionRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.AUCTION_NOT_FOUND));
+        auctionRepository.delete(deleteAuction);
         return AuctionMapper.INSTANCE.toAuctionDto(deleteAuction, new NotificatorMappingContext());
     }
 }
