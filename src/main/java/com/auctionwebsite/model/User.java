@@ -37,7 +37,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Bidding> biddingList;
     @Column(name = "role")
-    private UserRole userRole;
+    private String role;
 
     @Override
     public boolean equals(Object o) {
