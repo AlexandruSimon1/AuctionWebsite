@@ -1,1 +1,1 @@
-ALTER TABLE user ADD role ENUM('ADMIN', 'USER');
+ALTER TABLE user ADD role VARCHAR(30);
