@@ -17,4 +17,6 @@
     <include file="db/changelog/user_insert_values.sql"/>
     <include file="db/changelog/auction_insert_values.sql"/>
     <include file="db/changelog/bidding_insert_values.sql"/>
+    <include file="db/changelog/address_insert_values.sql"/>
+    <include file="db/changelog/purchasing_insert_values.sql"/>
 </databaseChangeLog>

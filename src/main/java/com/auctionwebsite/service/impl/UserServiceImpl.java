@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setType(userDTO.getType());
         updateUser.setPassword(userDTO.getPassword());
-        updateUser.setUserRole(userDTO.getUserRoleDTO());
+        updateUser.setRole(userDTO.getRole());
         updateUser.setBiddingList(BiddingMapper.INSTANCE
                 .fromBiddingsDto(userDTO.getBidding(), new NotificatorMappingContext()));
         updateUser.setPurchasingList(PurchasingMapper.INSTANCE
