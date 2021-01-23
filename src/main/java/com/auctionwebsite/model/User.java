@@ -30,13 +30,14 @@ public class User implements Serializable {
     private Date creationDate;
     @Column(name = "type")
     private String type;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(insertable = false, updatable = false, name = "id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Address address;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Purchasing> purchasingList;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Binding> bindingList;
+    private List<Bidding> biddingList;
+    @Column(name = "role")
+    private UserRole userRole;
 
     @Override
     public boolean equals(Object o) {
@@ -44,11 +45,13 @@ public class User implements Serializable {
         if (!(o instanceof User)) return false;
         User user = (User) o;
         return Objects.equal(getId(), user.getId()) &&
-                Objects.equal(getAddress(), user.getAddress());
+                Objects.equal(getAddress(), user.getAddress()) &&
+                Objects.equal(getBiddingList(), user.getBiddingList()) &&
+                Objects.equal(getPurchasingList(), user.getPurchasingList());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId(), getAddress());
+        return Objects.hashCode(getId(), getAddress(), getBiddingList(), getPurchasingList());
     }
 }

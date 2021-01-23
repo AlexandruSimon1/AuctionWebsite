@@ -1,7 +1,7 @@
 package com.auctionwebsite.controller;
 
-import com.auctionwebsite.dto.UserDTO;
-import com.auctionwebsite.service.UserService;
+import com.auctionwebsite.dto.CategoryDTO;
+import com.auctionwebsite.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,47 +13,47 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/api/v1/users")
-public class UserController {
-    private final UserService userService;
+@RequestMapping("/api/v1/categories")
+public class CategoryController {
+    private final CategoryService categoryService;
 
     //Mapping name
     @GetMapping
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
+    public List<CategoryDTO> getAllCategories() {
+        return categoryService.getAllCategories();
     }
 
     //Mapping name
-    @GetMapping(value = "/{userId}")
+    @GetMapping(value = "/{categoryId}")
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getUserById(@PathVariable int userId) {
-        return userService.getUserById(userId);
+    public CategoryDTO getCategoryById(@PathVariable int categoryId) {
+        return categoryService.getCategoryById(categoryId);
     }
 
     //Mapping name
     @PostMapping
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO createUser(@RequestBody UserDTO userDTO) {
-        return userService.createUser(userDTO);
+    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
+        return categoryService.createCategory(categoryDTO);
     }
 
     //Mapping name
-    @PutMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO updateUserById(@PathVariable int userId, @RequestBody UserDTO userDTO) {
-        return userService.updateUserById(userDTO, userId);
+    public CategoryDTO updateCategoryById(@PathVariable int categoryId, @RequestBody CategoryDTO categoryDTO) {
+        return categoryService.updateCategoryById(categoryDTO, categoryId);
     }
 
     //Mapping name
-    @DeleteMapping(value = "/{userId}")
+    @DeleteMapping(value = "/{categoryId}")
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public UserDTO deleteUserById(@PathVariable int userId) {
-        return userService.deleteUserById(userId);
+    public CategoryDTO deleteCategoryById(@PathVariable int categoryId) {
+        return categoryService.deleteCategoryById(categoryId);
     }
 }

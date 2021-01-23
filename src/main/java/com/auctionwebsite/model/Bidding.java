@@ -14,8 +14,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "purchasing")
-public class Purchasing implements Serializable {
+@Table(name = "bidding")
+public class Bidding implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,22 +23,22 @@ public class Purchasing implements Serializable {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
-    @JsonIgnoreProperties(value = {"bidding", "purchasing"}, ignoreUnknown = true)
+    @JsonIgnoreProperties(value = { "bidding", "purchasing" }, ignoreUnknown = true)
     private User user;
 
     @ToString.Exclude
-    @OneToOne
+    @ManyToOne
     @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
     private Auction auction;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Purchasing)) return false;
-        Purchasing purchasing = (Purchasing) o;
-        return Objects.equal(getId(), purchasing.getId()) &&
-                Objects.equal(getAuction(), purchasing.getAuction()) &&
-                Objects.equal(getUser(), purchasing.getUser());
+        if (!(o instanceof Bidding)) return false;
+        Bidding bidding = (Bidding) o;
+        return Objects.equal(getId(), bidding.getId()) &&
+                Objects.equal(getAuction(), bidding.getAuction()) &&
+                Objects.equal(getUser(), bidding.getUser());
     }
 
     @Override

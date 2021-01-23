@@ -1,7 +1,7 @@
 package com.auctionwebsite.mapper;
 
-import com.auctionwebsite.dto.BindingDTO;
-import com.auctionwebsite.model.Binding;
+import com.auctionwebsite.dto.BiddingDTO;
+import com.auctionwebsite.model.Bidding;
 import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -15,13 +15,13 @@ import java.util.List;
 public interface BiddingMapper {
     BiddingMapper INSTANCE = Mappers.getMapper(BiddingMapper.class);
 
-    BindingDTO toBiddingDto(Binding binding, @Context NotificatorMappingContext context);
+    BiddingDTO toBiddingDto(Bidding bidding, @Context NotificatorMappingContext context);
 
     @InheritInverseConfiguration
-    Binding fromBiddingDto(BindingDTO bindingDTO, @Context NotificatorMappingContext context);
+    Bidding fromBiddingDto(BiddingDTO biddingDTO, @Context NotificatorMappingContext context);
 
-    List<BindingDTO> toBindingsDto(List<Binding> bindings, @Context NotificatorMappingContext context);
+    List<BiddingDTO> toBiddingsDto(List<Bidding> biddings, @Context NotificatorMappingContext context);
 
     @InheritInverseConfiguration
-    List<Binding> fromBindingsDto(List<BindingDTO> bindingDTOList, @Context NotificatorMappingContext context);
+    List<Bidding> fromBiddingsDto(List<BiddingDTO> biddingDTOList, @Context NotificatorMappingContext context);
 }

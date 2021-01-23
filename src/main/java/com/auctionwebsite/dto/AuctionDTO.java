@@ -16,6 +16,4 @@ public class AuctionDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private CategoryDTO category;
-    private List<BindingDTO> bidding;
-    private PurchasingDTO purchasing;
 }

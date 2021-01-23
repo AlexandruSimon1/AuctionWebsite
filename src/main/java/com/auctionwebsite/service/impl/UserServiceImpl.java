@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         final User createUser = UserMapper.INSTANCE.fromUserDto(userDTO, new NotificatorMappingContext());
+        createUser.setCreationDate(Date.from(Instant.now()));
         final User saveUser = userRepository.save(createUser);
         return UserMapper.INSTANCE.toUserDto(saveUser, new NotificatorMappingContext());
     }
@@ -51,8 +56,9 @@ public class UserServiceImpl implements UserService {
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setType(userDTO.getType());
         updateUser.setPassword(userDTO.getPassword());
-        updateUser.setBindingList(BiddingMapper.INSTANCE
-                .fromBindingsDto(userDTO.getBidding(), new NotificatorMappingContext()));
+        updateUser.setUserRole(userDTO.getUserRoleDTO());
+        updateUser.setBiddingList(BiddingMapper.INSTANCE
+                .fromBiddingsDto(userDTO.getBidding(), new NotificatorMappingContext()));
         updateUser.setPurchasingList(PurchasingMapper.INSTANCE
                 .fromPurchasesDto(userDTO.getPurchasing(), new NotificatorMappingContext()));
         userRepository.save(updateUser);
