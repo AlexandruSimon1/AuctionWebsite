@@ -5,7 +5,6 @@ import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
 import com.auctionwebsite.mapper.AddressMapper;
 import com.auctionwebsite.mapper.NotificatorMappingContext;
-import com.auctionwebsite.mapper.UserMapper;
 import com.auctionwebsite.model.Address;
 import com.auctionwebsite.repository.AddressRepository;
 import com.auctionwebsite.service.AddressService;
