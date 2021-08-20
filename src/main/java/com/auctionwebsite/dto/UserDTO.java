@@ -3,7 +3,7 @@ package com.auctionwebsite.dto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -13,10 +13,8 @@ public class UserDTO {
     private String email;
     private String password;
     private String name;
-    private Date creationDate;
+    private LocalDateTime creationDate;
     private String type;
-    private AddressDTO address;
-    private List<BiddingDTO> bidding;
-    private List<PurchasingDTO> purchasing;
+    private List<AddressDTO> addresses;
     private String role;
 }

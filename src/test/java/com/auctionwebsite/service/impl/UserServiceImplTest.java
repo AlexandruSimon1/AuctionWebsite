@@ -36,18 +36,20 @@ public class UserServiceImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         userService = new UserServiceImpl(userRepository);
-
+        List<Address> addresses = new ArrayList<>();
         address = new Address();
         address.setId(ID_VALUE);
         address.setCity("Douala");
         address.setProvince("Cameron");
         address.setAddress("United");
 
+        addresses.add(address);
+
         firstUser = new User();
         firstUser.setId(1);
         firstUser.setName("Max Cameron");
         firstUser.setType("user");
-        firstUser.setAddress(address);
+        firstUser.setAddresses(addresses);
         firstUser.setEmail("max@cameron.com");
         firstUser.setPassword("test");
 
@@ -55,7 +57,7 @@ public class UserServiceImplTest {
         secondUser.setId(1);
         secondUser.setName("Max Cameron");
         secondUser.setType("user");
-        secondUser.setAddress(address);
+        secondUser.setAddresses(addresses);
         secondUser.setEmail("max@cameron.com");
         secondUser.setPassword("test");
     }
@@ -124,19 +126,20 @@ public class UserServiceImplTest {
 
     @Test
     void createUser() {
+        List<AddressDTO> addressDTOS = new ArrayList<>();
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setId(ID_VALUE);
         addressDTO.setCity("Douala");
         addressDTO.setProvince("Cameron");
         addressDTO.setAddress("United");
-
+        addressDTOS.add(addressDTO);
         UserDTO dto = new UserDTO();
         dto.setId(1);
         dto.setName("Max Cameron");
         dto.setType("user");
         dto.setEmail("max@cameron.com");
         dto.setPassword("test");
-        dto.setAddress(addressDTO);
+        dto.setAddresses(addressDTOS);
 
         when(userRepository.save(firstUser)).thenReturn(firstUser);
         UserDTO userDTO = userService.createUser(dto);

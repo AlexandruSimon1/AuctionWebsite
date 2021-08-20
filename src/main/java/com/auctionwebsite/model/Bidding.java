@@ -9,6 +9,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,12 +21,8 @@ public class Bidding implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
-    @JsonIgnoreProperties(value = { "bidding", "purchasing" }, ignoreUnknown = true)
+    @OneToOne(mappedBy = "bidding", cascade = CascadeType.ALL)
     private User user;
-
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")

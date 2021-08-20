@@ -5,5 +5,6 @@ CREATE TABLE user
     password      VARCHAR(255),
     name          VARCHAR(255),
     creation_date DATE,
-    type          VARCHAR(255)
-)
+    type          VARCHAR(255),
+    role VARCHAR(30)
+    )

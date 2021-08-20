@@ -5,6 +5,7 @@ import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
 import com.auctionwebsite.mapper.AddressMapper;
 import com.auctionwebsite.mapper.NotificatorMappingContext;
+import com.auctionwebsite.mapper.UserMapper;
 import com.auctionwebsite.model.Address;
 import com.auctionwebsite.repository.AddressRepository;
 import com.auctionwebsite.service.AddressService;
@@ -39,6 +40,10 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDTO createAddress(AddressDTO addressDTO) {
         final Address createAddress = AddressMapper.INSTANCE.fromAddressDto(addressDTO, new NotificatorMappingContext());
+        createAddress.setAddress(addressDTO.getAddress());
+        createAddress.setProvince(addressDTO.getProvince());
+        createAddress.setCity(addressDTO.getCity());
+        createAddress.setUser(UserMapper.INSTANCE.fromUserDto(addressDTO.getUserDTO(),new NotificatorMappingContext()));
         final Address saveAddress = addressRepository.save(createAddress);
         return AddressMapper.INSTANCE.toAddressDto(saveAddress, new NotificatorMappingContext());
     }
@@ -47,9 +52,12 @@ public class AddressServiceImpl implements AddressService {
     public AddressDTO updateAddressById(AddressDTO addressDTO, int id) {
         final Address updateAddress = addressRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
-        updateAddress.setCity(addressDTO.getCity());
-        updateAddress.setProvince(addressDTO.getAddress());
-        updateAddress.setAddress(addressDTO.getAddress());
+        if (addressDTO.getCity() != null)
+            updateAddress.setCity(addressDTO.getCity());
+        if (addressDTO.getProvince() != null)
+            updateAddress.setProvince(addressDTO.getProvince());
+        if (addressDTO.getAddress() != null)
+            updateAddress.setAddress(addressDTO.getAddress());
         addressRepository.save(updateAddress);
         return AddressMapper.INSTANCE.toAddressDto(updateAddress, new NotificatorMappingContext());
     }
@@ -58,7 +66,7 @@ public class AddressServiceImpl implements AddressService {
     public AddressDTO deleteAddressById(int id) {
         final Address deleteAddress = addressRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
-        addressRepository.delete(deleteAddress);
+        addressRepository.deleteById(id);
         return AddressMapper.INSTANCE.toAddressDto(deleteAddress, new NotificatorMappingContext());
     }
 }
