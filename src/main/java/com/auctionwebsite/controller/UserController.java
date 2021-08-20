@@ -42,7 +42,7 @@ public class UserController {
     }
 
     //Mapping name
-    @PutMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
     public UserDTO updateUserById(@PathVariable int userId, @RequestBody UserDTO userDTO) {

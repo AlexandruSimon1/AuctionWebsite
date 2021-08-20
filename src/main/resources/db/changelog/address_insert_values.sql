@@ -1,2 +1,2 @@
-INSERT INTO address (province, city,address)
-VALUES ('Iasi','Iasi','Aleea Gradinitii');
+INSERT INTO address (user_id,province, city,address)
+VALUES (1,'Iasi','Iasi','Aleea Gradinitii');

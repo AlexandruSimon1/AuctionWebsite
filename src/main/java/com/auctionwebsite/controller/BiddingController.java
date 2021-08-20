@@ -56,8 +56,8 @@ public class BiddingController {
     public BiddingDTO deleteBiddingById(@PathVariable int biddingId) {
         return biddingService.deleteBiddingById(biddingId);
     }
-    @GetMapping("/{userId}")
-    public List<BiddingDTO> findBiddingByUserId(@PathVariable("usetId") int id){
-        return biddingService.findBiddingByUserId(id);
-    }
+//    @GetMapping("/{biddingId}")
+//    public List<BiddingDTO> findBiddingByUserId(@PathVariable("userId") int id){
+//        return biddingService.findBiddingByUserId(id);
+//    }
 }

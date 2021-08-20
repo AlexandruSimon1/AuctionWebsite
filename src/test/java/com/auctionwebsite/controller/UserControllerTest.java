@@ -57,23 +57,26 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .build();
         //Inserting the data in order to be able to do the test of the endpoints
+        List<AddressDTO> addressDTOS = new ArrayList<>();
         address = new AddressDTO();
         address.setCity("Douala");
         address.setProvince("Cameron");
         address.setAddress("United");
 
+        addressDTOS.add(address);
+
         firstUser = new UserDTO();
         firstUser.setId(1);
         firstUser.setName("Max Cameron");
         firstUser.setType("user");
-        firstUser.setAddress(address);
+        firstUser.setAddresses(addressDTOS);
         firstUser.setEmail("max@cameron.com");
 
         secondUser = new UserDTO();
         secondUser.setId(1);
         secondUser.setName("Max Cameron");
         secondUser.setType("user");
-        secondUser.setAddress(address);
+        secondUser.setAddresses(addressDTOS);
         secondUser.setEmail("max@cameron.com");
     }
 

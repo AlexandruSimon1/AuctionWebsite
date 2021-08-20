@@ -36,7 +36,7 @@ public class AddressController {
         return addressService.createAddress(addressDTO);
     }
 
-    @PutMapping("/{addressId}")
+    @PatchMapping("/{addressId}")
     @ResponseStatus(HttpStatus.OK)
     public AddressDTO updateAddressById(@PathVariable int addressId, @RequestBody AddressDTO addressDTO) {
         return addressService.updateAddressById(addressDTO, addressId);
