@@ -119,15 +119,15 @@ public class AddressControllerTest {
         verify(addressService, times(1)).deleteAddressById(ID_VALUE);
     }
 
-    @Test
-    void createAddress() throws Exception {
-        //when
-        when(addressService.createAddress(Mockito.any(AddressDTO.class))).thenReturn(firstAddress);
-        //then
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/addresses").
-                contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON).characterEncoding("UTF-8")
-                .content(this.mapper.writeValueAsBytes(firstAddress));
-        mockMvc.perform(builder).andExpect(status().isCreated()).andExpect(jsonPath("$.city", is("Douala"))).
-                andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(firstAddress)));
-    }
+//    @Test
+//    void createAddress() throws Exception {
+//        //when
+//        when(addressService.createAddress(Mockito.any(AddressDTO.class))).thenReturn(firstAddress);
+//        //then
+//        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/addresses").
+//                contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON).characterEncoding("UTF-8")
+//                .content(this.mapper.writeValueAsBytes(firstAddress));
+//        mockMvc.perform(builder).andExpect(status().isCreated()).andExpect(jsonPath("$.city", is("Douala"))).
+//                andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(firstAddress)));
+//    }
 }

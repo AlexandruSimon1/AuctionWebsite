@@ -1,5 +1,7 @@
 package com.auctionwebsite.model;
 
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +9,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -27,15 +32,16 @@ public class User implements Serializable {
     @Column(name = "name")
     private String name;
     @Column(name = "creation_date")
-    private Date creationDate;
+    private LocalDateTime creationDate;
     @Column(name = "type")
     private String type;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Address address;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Address> addresses;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Purchasing> purchasingList;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Bidding> biddingList;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(insertable = false, updatable = false, name = "id", referencedColumnName = "id")
+    private Bidding bidding;
     @Column(name = "role")
     private String role;
 
@@ -45,13 +51,13 @@ public class User implements Serializable {
         if (!(o instanceof User)) return false;
         User user = (User) o;
         return Objects.equal(getId(), user.getId()) &&
-                Objects.equal(getAddress(), user.getAddress()) &&
-                Objects.equal(getBiddingList(), user.getBiddingList()) &&
+                Objects.equal(getAddresses(), user.getAddresses()) &&
+                Objects.equal(getBidding(), user.getBidding()) &&
                 Objects.equal(getPurchasingList(), user.getPurchasingList());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId(), getAddress(), getBiddingList(), getPurchasingList());
+        return Objects.hashCode(getId(), getAddresses(), getBidding(), getPurchasingList());
     }
 }

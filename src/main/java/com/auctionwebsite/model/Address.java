@@ -1,6 +1,6 @@
 package com.auctionwebsite.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +19,8 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ToString.Exclude
-    @OneToOne
-    @JoinColumn (insertable = false, updatable = false,name = "id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id", referencedColumnName="id")
     private User user;
     @Column(name = "province")
     private String province;

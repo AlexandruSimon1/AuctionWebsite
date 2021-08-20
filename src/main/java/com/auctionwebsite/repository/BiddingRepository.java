@@ -9,5 +9,5 @@ import java.util.List;
 //JpaRepository in one of the repository that is providing the CRUD methods for our application
 @Repository
 public interface BiddingRepository extends JpaRepository<Bidding, Integer> {
-    List<Bidding> findAllByUserId(int userId);
+    List<Bidding> findAllByUserId(int users);
 }

@@ -1,1 +1,0 @@
-ALTER TABLE user ADD role VARCHAR(30);

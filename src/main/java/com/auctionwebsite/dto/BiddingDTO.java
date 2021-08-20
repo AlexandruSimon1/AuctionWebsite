@@ -7,6 +7,5 @@ import lombok.Data;
 public class BiddingDTO {
     private int id;
     private AuctionDTO auction;
-    @JsonIgnoreProperties(value = { "bidding", "purchasing" }, ignoreUnknown = true)
     private UserDTO user;
 }
