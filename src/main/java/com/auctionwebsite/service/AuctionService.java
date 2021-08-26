@@ -14,4 +14,6 @@ public interface AuctionService {
     AuctionDTO updateAuctionById(AuctionDTO auctionDTO, int id);
 
     AuctionDTO deleteAuctionById(int id);
+
+    List<AuctionDTO> findAllAuctionsByCategoryId(int categoryId);
 }

@@ -1,7 +1,10 @@
 package com.auctionwebsite.controller;
 
 import com.auctionwebsite.dto.AuctionDTO;
+import com.auctionwebsite.dto.BiddingDTO;
+import com.auctionwebsite.dto.PurchasingDTO;
 import com.auctionwebsite.service.AuctionService;
+import com.auctionwebsite.service.BiddingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/auctions")
 public class AuctionController {
     private final AuctionService auctionService;
+    private final BiddingService biddingService;
 
     //Mapping name
     @GetMapping
@@ -63,31 +67,39 @@ public class AuctionController {
     }
 
     @GetMapping("/recently")
-    public List<AuctionDTO> findFourRecentlyAddedAuctions(){
+    public List<AuctionDTO> findFiveRecentlyAddedAuctions(){
         return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getStartDate).reversed())
-                .limit(4)
+                .limit(6)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/ending")
-    public List<AuctionDTO> findFourEndingAuctions(){
+    public List<AuctionDTO> findFiveEndingAuctions(){
         return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getEndDate))
                 .filter(auction -> auction.getEndDate().isAfter(LocalDateTime.ofInstant(Instant.now(),  ZoneId.of("Europe/Bucharest"))))
-                .limit(4)
+                .limit(6)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/recentlyEnded")
-    public List<AuctionDTO> findFourRecentlyEndedAuctions(){
-        return this.auctionService.getAllAuctions()
+    public List<AuctionDTO> findFiveRecentlyEndedAuctions(){
+        return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getEndDate).reversed())
                 .filter(auction -> auction.getEndDate().isBefore(LocalDateTime.ofInstant(Instant.now(),  ZoneId.of("Europe/Bucharest"))))
-                .limit(4)
+                .limit(6)
                 .collect(Collectors.toList());
+    }
+
+    //Mapping name
+    @GetMapping(value = "/{auctionId}/bidding")
+    //Response status is used for providing the status of our request
+    @ResponseStatus(HttpStatus.OK)
+    public List<BiddingDTO> getBiddingByAuctionId(@PathVariable int auctionId) {
+        return biddingService.findAllBiddingByAuctionId(auctionId);
     }
 }

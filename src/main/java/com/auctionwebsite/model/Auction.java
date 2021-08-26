@@ -39,15 +39,10 @@ public class Auction implements Serializable {
     private LocalDateTime startDate;
     @Column(name = "end_date")
     private LocalDateTime endDate;
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty(value = "categoryId")
+    @OneToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
     private Category category;
-    @OneToMany(mappedBy = "auction")
+    @OneToMany(mappedBy = "auction",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Bidding> biddingList;
-    @OneToOne(mappedBy = "auction")
+    @OneToOne(mappedBy = "auction",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Purchasing purchasing;
 }

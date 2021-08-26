@@ -5,7 +5,6 @@ import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
 import com.auctionwebsite.mapper.AddressMapper;
 import com.auctionwebsite.mapper.NotificatorMappingContext;
-import com.auctionwebsite.mapper.UserMapper;
 import com.auctionwebsite.model.Address;
 import com.auctionwebsite.repository.AddressRepository;
 import com.auctionwebsite.service.AddressService;
@@ -43,7 +42,6 @@ public class AddressServiceImpl implements AddressService {
         createAddress.setAddress(addressDTO.getAddress());
         createAddress.setProvince(addressDTO.getProvince());
         createAddress.setCity(addressDTO.getCity());
-        createAddress.setUser(UserMapper.INSTANCE.fromUserDto(addressDTO.getUserDTO(),new NotificatorMappingContext()));
         final Address saveAddress = addressRepository.save(createAddress);
         return AddressMapper.INSTANCE.toAddressDto(saveAddress, new NotificatorMappingContext());
     }

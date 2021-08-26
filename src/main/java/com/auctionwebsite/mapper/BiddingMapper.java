@@ -9,6 +9,7 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Map;
 
 //Mapper is used in order to be able to export and import the information from data base and in data base
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)

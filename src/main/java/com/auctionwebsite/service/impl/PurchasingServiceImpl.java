@@ -59,4 +59,10 @@ public class PurchasingServiceImpl implements PurchasingService {
         purchasingRepository.delete(deletePurchasing);
         return PurchasingMapper.INSTANCE.toPurchasingDto(deletePurchasing, new NotificatorMappingContext());
     }
+
+    @Override
+    public List<PurchasingDTO> findAllPurchasingByUserId(int userId) {
+        return purchasingRepository.findAllPurchasingByUserId(userId).stream().map(allPurchases -> PurchasingMapper.INSTANCE.toPurchasingDto(allPurchases, new NotificatorMappingContext()))
+                .collect(Collectors.toList());
+    }
 }
