@@ -35,13 +35,12 @@ public class User implements Serializable {
     private LocalDateTime creationDate;
     @Column(name = "type")
     private String type;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Purchasing> purchasingList;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(insertable = false, updatable = false, name = "id", referencedColumnName = "id")
-    private Bidding bidding;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Purchasing> purchasing;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Bidding> bidding;
     @Column(name = "role")
     private String role;
 
@@ -53,11 +52,11 @@ public class User implements Serializable {
         return Objects.equal(getId(), user.getId()) &&
                 Objects.equal(getAddresses(), user.getAddresses()) &&
                 Objects.equal(getBidding(), user.getBidding()) &&
-                Objects.equal(getPurchasingList(), user.getPurchasingList());
+                Objects.equal(getPurchasing(), user.getPurchasing());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId(), getAddresses(), getBidding(), getPurchasingList());
+        return Objects.hashCode(getId(), getAddresses(), getBidding(), getPurchasing());
     }
 }

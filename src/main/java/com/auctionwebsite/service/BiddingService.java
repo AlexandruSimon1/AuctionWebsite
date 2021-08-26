@@ -15,5 +15,7 @@ public interface BiddingService {
 
     BiddingDTO deleteBiddingById(int id);
 
-    List<BiddingDTO> findBiddingByUserId(int id);
+    List<BiddingDTO> findAllBiddingByUserId(int userId);
+
+    List<BiddingDTO> findAllBiddingByAuctionId(int auctionId);
 }
