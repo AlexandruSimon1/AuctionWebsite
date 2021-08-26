@@ -20,15 +20,11 @@ public class Purchasing implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
-    @JsonIgnoreProperties(value = {"bidding", "purchasing"}, ignoreUnknown = true)
+    @ManyToOne( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
-    @ToString.Exclude
-    @OneToOne
-    @JoinColumn(insertable = false, updatable = false,name = "id", referencedColumnName = "id")
+    @OneToOne( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Auction auction;
 
     @Override

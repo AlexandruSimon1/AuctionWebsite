@@ -3,11 +3,9 @@ package com.auctionwebsite.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +21,7 @@ public class Category implements Serializable {
     private String name;
     @Column(name = "description")
     private String description;
-    @ToString.Exclude
-    @OneToMany(mappedBy ="category" ,cascade = CascadeType.ALL)
-    private List<Auction> auctionList;
+    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", referencedColumnName = "category_id")
+    private Auction auction;
 }

@@ -14,4 +14,6 @@ public interface PurchasingService {
     PurchasingDTO updatePurchasingById(PurchasingDTO purchasingDTO, int id);
 
     PurchasingDTO deletePurchasingById(int id);
+
+    List<PurchasingDTO> findAllPurchasingByUserId(int userId);
 }
