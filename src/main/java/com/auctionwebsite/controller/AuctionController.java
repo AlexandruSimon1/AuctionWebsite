@@ -67,7 +67,7 @@ public class AuctionController {
     }
 
     @GetMapping("/recently")
-    public List<AuctionDTO> findFiveRecentlyAddedAuctions(){
+    public List<AuctionDTO> findRecentlyAddedAuctions(){
         return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getStartDate).reversed())
@@ -76,7 +76,7 @@ public class AuctionController {
     }
 
     @GetMapping("/ending")
-    public List<AuctionDTO> findFiveEndingAuctions(){
+    public List<AuctionDTO> findEndingAuctions(){
         return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getEndDate))
@@ -86,7 +86,7 @@ public class AuctionController {
     }
 
     @GetMapping("/recentlyEnded")
-    public List<AuctionDTO> findFiveRecentlyEndedAuctions(){
+    public List<AuctionDTO> findRecentlyEndedAuctions(){
         return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getEndDate).reversed())
