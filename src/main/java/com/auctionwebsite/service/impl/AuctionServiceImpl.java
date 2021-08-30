@@ -49,21 +49,25 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public AuctionDTO createAuction(AuctionDTO auctionDTO) {
-        final Auction createAuction = AuctionMapper.INSTANCE.fromAuctionDto(auctionDTO, new NotificatorMappingContext());
-        final Category category = CategoryMapper.INSTANCE.fromCategoryDto(auctionDTO.getCategory(),new NotificatorMappingContext());
+        final Auction createAuction = new Auction();
+        final Category category = CategoryMapper.INSTANCE.fromCategoryDto(auctionDTO.getCategory(), new NotificatorMappingContext());
+        categoryRepository.findById(category.getId()).orElseThrow(() -> new ApplicationException(ExceptionType.CATEGORY_NOT_FOUND));
         createAuction.setTitle(auctionDTO.getTitle());
         createAuction.setDescription(auctionDTO.getDescription());
-        createAuction.setCategory(category);
         createAuction.setMinimumPrice(auctionDTO.getMinimumPrice());
         createAuction.setBuyNow(auctionDTO.getBuyNow());
         createAuction.setPhotos(auctionDTO.getPhotos());
         createAuction.setStartDate(LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest")));
         createAuction.setEndDate(LocalDateTime.ofInstant(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS), ZoneId.of("Europe/Bucharest")));
-//        category.setName(auctionDTO.getCategory().getName());
-//        category.setDescription(auctionDTO.getCategory().getDescription());
-//        category.setAuction(AuctionMapper.INSTANCE.fromAuctionDto(auctionDTO, new NotificatorMappingContext()));
-//        categoryRepository.save(category);
         final Auction saveAuction = auctionRepository.save(createAuction);
+        if (categoryRepository.findById(auctionDTO.getCategory().getId()).isPresent()) {
+            category.setId(auctionDTO.getCategory().getId());
+            category.setName(auctionDTO.getCategory().getName());
+            category.setDescription(auctionDTO.getCategory().getDescription());
+            category.setAuction(saveAuction);
+            final Category saveCategory = categoryRepository.save(category);
+            createAuction.setCategory(saveCategory);
+        }
         return AuctionMapper.INSTANCE.toAuctionDto(saveAuction, new NotificatorMappingContext());
     }
 
@@ -71,14 +75,18 @@ public class AuctionServiceImpl implements AuctionService {
     public AuctionDTO updateAuctionById(AuctionDTO auctionDTO, int id) {
         final Auction updateAuction = auctionRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.AUCTION_NOT_FOUND));
+        final Category category = CategoryMapper.INSTANCE.fromCategoryDto(auctionDTO.getCategory(), new NotificatorMappingContext());
         updateAuction.setTitle(auctionDTO.getTitle());
         updateAuction.setDescription(auctionDTO.getDescription());
         updateAuction.setPhotos(auctionDTO.getPhotos());
         updateAuction.setMinimumPrice(auctionDTO.getMinimumPrice());
         updateAuction.setBuyNow(auctionDTO.getBuyNow());
-        updateAuction.setStartDate(auctionDTO.getStartDate());
-        updateAuction.setEndDate(auctionDTO.getEndDate());
-        updateAuction.setCategory(CategoryMapper.INSTANCE.fromCategoryDto(auctionDTO.getCategory(), new NotificatorMappingContext()));
+        category.setId(auctionDTO.getCategory().getId());
+        category.setName(auctionDTO.getCategory().getName());
+        category.setDescription(auctionDTO.getCategory().getDescription());
+        category.setAuction(AuctionMapper.INSTANCE.fromAuctionDto(auctionDTO, new NotificatorMappingContext()));
+        final Category saveCategory = categoryRepository.save(category);
+        updateAuction.setCategory(saveCategory);
         auctionRepository.save(updateAuction);
         return AuctionMapper.INSTANCE.toAuctionDto(updateAuction, new NotificatorMappingContext());
     }

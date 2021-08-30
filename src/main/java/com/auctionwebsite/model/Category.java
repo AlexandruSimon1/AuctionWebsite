@@ -21,7 +21,7 @@ public class Category implements Serializable {
     private String name;
     @Column(name = "description")
     private String description;
-    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id", referencedColumnName = "category_id")
     private Auction auction;
 }

@@ -1,0 +1,905 @@
+{
+	"info": {
+		"_postman_id": "21eb645b-3ece-4122-9755-d0c2da9e2676",
+		"name": "Auction Website API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "Get All Addresses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/addresses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Address By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/addresses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Iasi\",\r\n    \"city\": \"Iasi\",\r\n    \"address\": \"Iasi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/addresses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Iasi\",\r\n    \"city\": \"Iasi\",\r\n    \"address\": \"Aleea\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/addresses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/addresses/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"max@cameron.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"Max\",\r\n    \"type\": null,\r\n    \"address\": {\r\n        \"id\": 1,\r\n        \"province\": \"Iasi\",\r\n        \"city\": \"Iasi\",\r\n        \"address\": \"Aleea Gradinitei\"\r\n    },\r\n    \"bidding\": null,\r\n    \"purchasing\": null,\r\n    \"role\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"max@cameron.com\",\r\n        \"password\": \"password\",\r\n        \"name\": \"Max\",\r\n        \"type\": null,\r\n        \"addresses\": [\r\n            {\r\n                \"province\": \"Testing\",\r\n                \"city\": \"Iasi\",\r\n                \"address\": \"Aleea Gradinitii\"\r\n            }\r\n        ],\r\n        \"role\": \"ADMIN\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users/30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Biddings By User Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users/2/bidding",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"2",
+								"bidding"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Purchases By User Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users/2/purchasing",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"2",
+								"purchasing"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Biddings",
+			"item": [
+				{
+					"name": "Get All Biddings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/biddings",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"biddings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bidding By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/biddings/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"biddings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Biddings By Auction Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/auctions/2/bidding",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"2",
+								"bidding"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Bidding",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auction\": {\r\n        \"id\": 1,\r\n        \"title\": \"Apple iPhone SE\",\r\n        \"description\": \"Boxed Mobile\",\r\n        \"photos\": \"apple.jpg\",\r\n        \"minimumPrice\": 450,\r\n        \"buyNow\": 800,\r\n        \"startDate\": \"2020-02-01T02:00:00\",\r\n        \"endDate\": \"2020-03-02T02:00:00\",\r\n        \"category\": {\r\n            \"id\": 1,\r\n            \"name\": \"Smartphones & Accessories\",\r\n            \"description\": \"Cell Phones & Smartphones, Cases, Covers & Skins, Chargers & Cradles\"\r\n        }\r\n    },\r\n    \"user\": {\r\n        \"id\": 2,\r\n        \"email\": \"test\",\r\n        \"password\": \"test\",\r\n        \"name\": \"Test\",\r\n        \"creationDate\": null,\r\n        \"type\": null,\r\n        \"addresses\": [],\r\n        \"role\": \"USER\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/biddings",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"biddings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bidding By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"auction\": {\r\n        \"id\": 1,\r\n        \"title\": \"Apple iPhone SE\",\r\n        \"description\": \"Boxed Mobile\",\r\n        \"photos\": \"apple.jpg\",\r\n        \"minimumPrice\": 450,\r\n        \"buyNow\": 800,\r\n        \"startDate\": \"2020-02-01T02:00:00\",\r\n        \"endDate\": \"2020-03-02T02:00:00\",\r\n        \"category\": {\r\n            \"id\": 1,\r\n            \"name\": \"Smartphones & Accessories\",\r\n            \"description\": \"Cell Phones & Smartphones, Cases, Covers & Skins, Chargers & Cradles\"\r\n        }\r\n    },\r\n    \"user\": {\r\n        \"id\": 2,\r\n        \"email\": \"test\",\r\n        \"password\": \"test\",\r\n        \"name\": \"Test\",\r\n        \"creationDate\": null,\r\n        \"type\": null,\r\n        \"addresses\": [],\r\n        \"role\": \"USER\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/biddings/6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"biddings",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bidding By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/biddings/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"biddings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/categories/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/categories/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Auctions By Category Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/categories/7/auctions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"7",
+								"auctions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Smartphones & Testing\",\r\n    \"description\": \"Cell Phones & Smartphones, Cases, Covers & Skins, Chargers & Cradles\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 13,\r\n    \"name\": \"Testing & Testing\",\r\n    \"description\": \"Cell Phones & Smartphones, Cases, Covers & Skins, Chargers & Cradles\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/categories/13",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auctions",
+			"item": [
+				{
+					"name": "Get All Auctions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/auctions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Auction By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/auctions/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recently Added Auctions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/auctions/recently",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"recently"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ending Auctions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/auctions/ending",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"ending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recently Ended Auctions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/auctions/recentlyEnded",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"recentlyEnded"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Auction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"DJI Mini 2\",\r\n    \"description\": \"Fly More Combo Camera Testing\",\r\n    \"photos\": \"drone.jpg\",\r\n    \"minimumPrice\": 100,\r\n    \"buyNow\": 800,\r\n    \"category\": {\r\n        \"id\": 6,\r\n        \"name\": \"Camera Drones\",\r\n        \"description\": \"Camera Drones\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auctions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Auction",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 16,\r\n    \"title\": \"DJI Testing 2\",\r\n    \"description\": \"Fly More Combo Camera Testing\",\r\n    \"photos\": \"drone.jpg\",\r\n    \"minimumPrice\": 100,\r\n    \"buyNow\": 800,\r\n    \"startDate\": \"2021-08-30T10:37:54.8476848\",\r\n    \"endDate\": \"2021-09-06T10:37:54.8476848\",\r\n    \"category\": {\r\n        \"id\": 6,\r\n        \"name\": \"Camera Drones\",\r\n        \"description\": \"Camera Drones\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auctions/16",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Auction By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/auctions/16",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"16"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchases",
+			"item": [
+				{
+					"name": "Get All Purchases",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/purchases",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Purchasing By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/purchases/7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"purchases",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Purchasing",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auction\": {\r\n        \"id\": 1,\r\n        \"title\": \"Apple iPhone SE\",\r\n        \"description\": \"Boxed Mobile\",\r\n        \"photos\": \"apple.jpg\",\r\n        \"minimumPrice\": 450,\r\n        \"buyNow\": 800,\r\n        \"startDate\": \"2020-02-01T02:00:00\",\r\n        \"endDate\": \"2020-03-02T02:00:00\",\r\n        \"category\": {\r\n            \"id\": 1,\r\n            \"name\": \"Smartphones & Accessories\",\r\n            \"description\": \"Cell Phones & Smartphones, Cases, Covers & Skins, Chargers & Cradles\"\r\n        }\r\n    },\r\n    \"user\": {\r\n        \"id\": 1,\r\n        \"email\": \"max@cameron.com\",\r\n        \"password\": \"password\",\r\n        \"name\": \"Max\",\r\n        \"creationDate\": \"2021-08-30T03:00:00\",\r\n        \"type\": null,\r\n        \"addresses\": [\r\n            {\r\n                \"id\": 1,\r\n                \"province\": \"Iasi\",\r\n                \"city\": \"Iasi\",\r\n                \"address\": \"Aleea Gradinitii\"\r\n            },\r\n            {\r\n                \"id\": 2,\r\n                \"province\": \"Iasi\",\r\n                \"city\": \"Iasi\",\r\n                \"address\": \"Aleea Gradinitii\"\r\n            }\r\n        ],\r\n        \"role\": \"ADMIN\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/purchases",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Purchasing By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 7,\r\n    \"auction\": {\r\n        \"id\": 2,\r\n        \"title\": \"Apple Watch Series 3\",\r\n        \"description\": \"42mm Aluminium Case Black Sport Band Smart Watch\",\r\n        \"photos\": \"applewatch.jpg\",\r\n        \"minimumPrice\": 100,\r\n        \"buyNow\": 500,\r\n        \"startDate\": \"2020-02-01T02:00:00\",\r\n        \"endDate\": \"2020-03-02T02:00:00\",\r\n        \"category\": {\r\n            \"id\": 2,\r\n            \"name\": \"Smart Watches\",\r\n            \"description\": \"Smart Watches\"\r\n        }\r\n    },\r\n    \"user\": {\r\n        \"id\": 2,\r\n        \"email\": \"test\",\r\n        \"password\": \"test\",\r\n        \"name\": \"Test\",\r\n        \"creationDate\": null,\r\n        \"type\": null,\r\n        \"addresses\": [],\r\n        \"role\": \"USER\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/purchases/7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"purchases",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Purchasing By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/purchases/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"purchases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:8181"
+		}
+	]
+}
