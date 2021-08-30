@@ -51,7 +51,7 @@ public class AuctionController {
     }
 
     //Mapping name
-    @PutMapping(value = "/{auctionId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{auctionId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
     public AuctionDTO updateAuctionById(@PathVariable int auctionId, @RequestBody AuctionDTO auctionDTO) {

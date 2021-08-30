@@ -42,7 +42,7 @@ public class BiddingController {
     }
 
     //Mapping name
-    @PutMapping(value = "/{biddingId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{biddingId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
     public BiddingDTO updateBiddingById(@PathVariable int biddingId, @RequestBody BiddingDTO biddingDTO) {
@@ -56,8 +56,4 @@ public class BiddingController {
     public BiddingDTO deleteBiddingById(@PathVariable int biddingId) {
         return biddingService.deleteBiddingById(biddingId);
     }
-//    @GetMapping("/{biddingId}")
-//    public List<BiddingDTO> findBiddingByUserId(@PathVariable("userId") int id){
-//        return biddingService.findBiddingByUserId(id);
-//    }
 }
