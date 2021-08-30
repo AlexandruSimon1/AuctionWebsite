@@ -3,7 +3,6 @@ package com.auctionwebsite.service.impl;
 import com.auctionwebsite.dto.CategoryDTO;
 import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
-import com.auctionwebsite.mapper.AuctionMapper;
 import com.auctionwebsite.mapper.CategoryMapper;
 import com.auctionwebsite.mapper.NotificatorMappingContext;
 import com.auctionwebsite.model.Category;

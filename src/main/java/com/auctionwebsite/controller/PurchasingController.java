@@ -42,7 +42,7 @@ public class PurchasingController {
     }
 
     //Mapping name
-    @PutMapping(value = "/{purchasingId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{purchasingId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
     public PurchasingDTO updatePurchasingById(@PathVariable int purchasingId, @RequestBody PurchasingDTO purchasingDTO) {

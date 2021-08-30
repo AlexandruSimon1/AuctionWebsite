@@ -7,7 +7,6 @@ import com.auctionwebsite.service.BiddingService;
 import com.auctionwebsite.service.PurchasingService;
 import com.auctionwebsite.service.UserService;
 import lombok.AllArgsConstructor;
-import org.hibernate.annotations.LazyGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

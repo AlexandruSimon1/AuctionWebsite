@@ -45,7 +45,7 @@ public class CategoryController {
     }
 
     //Mapping name
-    @PutMapping(value = "/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO updateCategoryById(@PathVariable int categoryId, @RequestBody CategoryDTO categoryDTO) {
