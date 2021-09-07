@@ -24,6 +24,9 @@ public class PersistanceConfig {
     @Value("${spring.datasource.driver}")
     private String driverDatabase;
 
+    @Value("${spring.liquibase.change-log}")
+    private String liquibaseChangeLog;
+
     @Bean
     public DataSource getDataSource() {
         return DataSourceBuilder.create().driverClassName(driverDatabase)
@@ -34,7 +37,7 @@ public class PersistanceConfig {
     @Bean
     public SpringLiquibase getSpringLiquibase () {
         SpringLiquibase springLiquibase = new SpringLiquibase();
-        springLiquibase.setChangeLog("classpath:db/changelog/liquibase-changelog.xml");
+        springLiquibase.setChangeLog(liquibaseChangeLog);
         springLiquibase.setDataSource(getDataSource());
         return springLiquibase;
     }
