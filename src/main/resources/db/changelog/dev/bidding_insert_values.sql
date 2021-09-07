@@ -1,0 +1,1 @@
+INSERT INTO bidding(auction_id, user_id) VALUES (95,15),(105,15),(105,5);
