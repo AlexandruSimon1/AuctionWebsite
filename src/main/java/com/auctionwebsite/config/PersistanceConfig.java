@@ -1,19 +1,34 @@
 package com.auctionwebsite.config;
 
 import liquibase.integration.spring.SpringLiquibase;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 
 @Configuration
+@PropertySource("application-${spring.profiles.active}.properties")
 public class PersistanceConfig {
+    @Value("${spring.datasource.username}")
+    private String username;
+
+    @Value("${spring.datasource.password}")
+    private String password;
+
+    @Value("${spring.datasource.url}")
+    private String databaseUrl;
+
+    @Value("${spring.datasource.driver}")
+    private String driverDatabase;
+
     @Bean
     public DataSource getDataSource() {
-        return DataSourceBuilder.create().driverClassName("com.mysql.cj.jdbc.Driver")
-                .url("jdbc:mysql://localhost:3306/auction_db?serverTimezone=UTC")
-                .username("root").password("root").build();
+        return DataSourceBuilder.create().driverClassName(driverDatabase)
+                .url(databaseUrl)
+                .username(username).password(password).build();
     }
 
     @Bean
