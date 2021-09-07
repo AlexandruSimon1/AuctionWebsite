@@ -6,7 +6,6 @@
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
         http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
-    <include file="db/changelog/create_auction_db.sql"/>
     <include file="db/changelog/user_table.sql"/>
     <include file="db/changelog/address_table.sql"/>
     <include file="db/changelog/category_table.sql"/>
@@ -15,8 +14,4 @@
     <include file="db/changelog/purchasing_table.sql"/>
     <include file="db/changelog/category_insert_values.sql"/>
     <include file="db/changelog/user_insert_values.sql"/>
-    <include file="db/changelog/auction_insert_values.sql"/>
-    <include file="db/changelog/bidding_insert_values.sql"/>
-    <include file="db/changelog/address_insert_values.sql"/>
-    <include file="db/changelog/purchasing_insert_values.sql"/>
 </databaseChangeLog>
