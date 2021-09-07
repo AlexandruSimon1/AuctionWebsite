@@ -1,0 +1,1 @@
+INSERT INTO purchasing (auction_id, user_id) VALUES (95,5),(105,5),(115,15);
