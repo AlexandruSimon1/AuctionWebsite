@@ -1,4 +1,4 @@
-CREATE TABLE auction
+CREATE TABLE IF NOT EXISTS auction
 (
     id            INT PRIMARY KEY AUTO_INCREMENT,
     title         VARCHAR(255),
