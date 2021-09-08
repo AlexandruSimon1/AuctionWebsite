@@ -73,6 +73,11 @@
             <artifactId>guava</artifactId>
             <version>30.1-jre</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>3.0.4</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,4 +1,4 @@
-CREATE TABLE category
+CREATE TABLE IF NOT EXISTS category
 (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     name        VARCHAR(255),

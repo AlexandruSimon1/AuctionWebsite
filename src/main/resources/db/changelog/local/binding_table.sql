@@ -1,4 +1,4 @@
-CREATE TABLE bidding
+CREATE TABLE IF NOT EXISTS bidding
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     auction_id INT,
