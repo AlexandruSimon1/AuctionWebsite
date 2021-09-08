@@ -1,4 +1,4 @@
-CREATE TABLE purchasing
+CREATE TABLE IF NOT EXISTS purchasing
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     auction_id INT,
