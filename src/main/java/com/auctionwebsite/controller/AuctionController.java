@@ -2,12 +2,10 @@ package com.auctionwebsite.controller;
 
 import com.auctionwebsite.dto.AuctionDTO;
 import com.auctionwebsite.dto.BiddingDTO;
-import com.auctionwebsite.dto.PurchasingDTO;
 import com.auctionwebsite.service.AuctionService;
 import com.auctionwebsite.service.BiddingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@PropertySource("application-${spring.profiles.active}.properties")
-@CrossOrigin(origins = "${ui.url.origin}")
+@CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/api/v1/auctions")
