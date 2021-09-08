@@ -4,15 +4,13 @@ import com.auctionwebsite.dto.BiddingDTO;
 import com.auctionwebsite.service.BiddingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@PropertySource("application-${spring.profiles.active}.properties")
-@CrossOrigin(origins = "${ui.url.origin}")
+@CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/api/v1/biddings")
