@@ -1,3 +1,3 @@
-INSERT INTO user(email, password, name, role)
-VALUES ('max@cameron.com', 'password', 'Max', 'ADMIN'),
-       ('test', 'test', 'Test', 'USER');
+INSERT INTO user(email, password, username)
+VALUES ('max@cameron.com', 'password', 'Max'),
+       ('test', 'test', 'Test');

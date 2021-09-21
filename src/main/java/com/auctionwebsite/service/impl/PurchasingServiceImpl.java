@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +52,7 @@ public class PurchasingServiceImpl implements PurchasingService {
         final User existingUser = new User();
         final Auction existingAuction = AuctionMapper.INSTANCE.fromAuctionDto(purchasingDTO.getAuction(), new NotificatorMappingContext());
         final List<Address> createAddress = AddressMapper.INSTANCE.fromAddressDto(purchasingDTO.getUser().getAddresses(), new NotificatorMappingContext());
+        final Set<Role> createRole= RoleMapper.INSTANCE.fromRolesDTO(purchasingDTO.getUser().getRole(),new NotificatorMappingContext());
         auctionRepository.findById(purchasingDTO.getAuction().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.AUCTION_NOT_FOUND));
         userRepository.findById(purchasingDTO.getUser().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         for (Address address : createAddress) {
@@ -62,11 +64,11 @@ public class PurchasingServiceImpl implements PurchasingService {
         }
         if (userRepository.findById(purchasingDTO.getUser().getId()).isPresent()) {
             existingUser.setId(purchasingDTO.getUser().getId());
-            existingUser.setName(purchasingDTO.getUser().getName());
+            existingUser.setUsername(purchasingDTO.getUser().getUsername());
             existingUser.setEmail(purchasingDTO.getUser().getEmail());
             existingUser.setType(purchasingDTO.getUser().getType());
             existingUser.setPassword(purchasingDTO.getUser().getPassword());
-            existingUser.setRole(purchasingDTO.getUser().getRole());
+            existingUser.setRoles(createRole);
             existingUser.setCreationDate(purchasingDTO.getUser().getCreationDate());
             existingUser.setAddresses(createAddress);
             final User saveUser = userRepository.save(existingUser);
@@ -87,6 +89,7 @@ public class PurchasingServiceImpl implements PurchasingService {
         final User updateUser = new User();
         final List<Address> createAddress = AddressMapper.INSTANCE.fromAddressDto(purchasingDTO.getUser().getAddresses(), new NotificatorMappingContext());
         final Auction existingAuction = AuctionMapper.INSTANCE.fromAuctionDto(purchasingDTO.getAuction(), new NotificatorMappingContext());
+        final Set<Role> updateRole = RoleMapper.INSTANCE.fromRolesDTO(purchasingDTO.getUser().getRole(),new NotificatorMappingContext());
         auctionRepository.findById(purchasingDTO.getAuction().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.AUCTION_NOT_FOUND));
         userRepository.findById(purchasingDTO.getUser().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         for (Address address : createAddress) {
@@ -97,8 +100,8 @@ public class PurchasingServiceImpl implements PurchasingService {
             updateUser.setType(purchasingDTO.getUser().getType());
             updateUser.setEmail(purchasingDTO.getUser().getEmail());
             updateUser.setPassword(purchasingDTO.getUser().getPassword());
-            updateUser.setRole(purchasingDTO.getUser().getRole());
-            updateUser.setName(purchasingDTO.getUser().getName());
+            updateUser.setRoles(updateRole);
+            updateUser.setUsername(purchasingDTO.getUser().getUsername());
             updateUser.setCreationDate(purchasingDTO.getUser().getCreationDate());
             updateUser.setAddresses(createAddress);
             updatePurchasing.setUser(updateUser);
