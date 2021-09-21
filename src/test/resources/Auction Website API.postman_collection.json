@@ -153,7 +153,13 @@
 					"name": "Get All Users",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{url}}/api/v1/users",
 							"host": [
@@ -874,6 +880,82 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "SingIn/SingUp",
+			"item": [
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"jwtToken\", response.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"test\",\r\n    \"username\": \"alex\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auth/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up For New Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"alex@gmail.com\",\r\n    \"password\": \"test\",\r\n    \"username\": \"alex\",\r\n    \"firstName\":\"Alex\",\r\n    \"lastName\": \"Simon\",\r\n    \"role\": [\r\n        \"ROLE_USER\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -899,7 +981,11 @@
 	"variable": [
 		{
 			"key": "url",
-			"value": "https://auction-backend-sys.herokuapp.com"
+			"value": "localhost:8181"
+		},
+		{
+			"key": "jwtToken",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNjMyMjEzMzIwLCJleHAiOjE2MzIyOTk3MjB9.K-fTSCOOdT7i7FZF9oKMqVyixbQvPMtDsHK88f5nyLqf58H4jE1tcndtkZlWXtIRXDJUaR8iZAuh5UptSxwDqA"
 		}
 	]
 }
