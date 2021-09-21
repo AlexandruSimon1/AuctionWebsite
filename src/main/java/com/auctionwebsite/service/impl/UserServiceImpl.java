@@ -5,12 +5,14 @@ import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
 import com.auctionwebsite.mapper.*;
 import com.auctionwebsite.model.Address;
+import com.auctionwebsite.model.Role;
 import com.auctionwebsite.model.User;
 import com.auctionwebsite.repository.AddressRepository;
 import com.auctionwebsite.repository.UserRepository;
 import com.auctionwebsite.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private AddressRepository addressRepository;
+    private PasswordEncoder encoder;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -39,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserById(int id) {
+    public UserDTO getUserById(Long id) {
         final User getUser = userRepository.findById(id).orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         return UserMapper.INSTANCE.toUserDto(getUser, new NotificatorMappingContext());
     }
@@ -48,11 +52,14 @@ public class UserServiceImpl implements UserService {
     public UserDTO createUser(UserDTO userDTO) {
         final User createUser = new User();
         final List<Address> createAddress = AddressMapper.INSTANCE.fromAddressDto(userDTO.getAddresses(), new NotificatorMappingContext());
-        createUser.setName(userDTO.getName());
+        final Set<Role> createRole= RoleMapper.INSTANCE.fromRolesDTO(userDTO.getRole(),new NotificatorMappingContext());
+        createUser.setUsername(userDTO.getUsername());
+        createUser.setFirstName(userDTO.getFirstName());
+        createUser.setLastName(userDTO.getLastName());
         createUser.setEmail(userDTO.getEmail());
         createUser.setType(userDTO.getType());
-        createUser.setPassword(userDTO.getPassword());
-        createUser.setRole(userDTO.getRole());
+        createUser.setPassword(encoder.encode(userDTO.getPassword()));
+        createUser.setRoles(createRole);
         createUser.setCreationDate(LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest")));
         final User saveUser = userRepository.save(createUser);
         for (Address address : createAddress) {
@@ -63,15 +70,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUserById(UserDTO userDTO, int id) {
+    public UserDTO updateUserById(UserDTO userDTO, Long id) {
         final User updateUser = userRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         final List<Address> updateOrCreateAddress = AddressMapper.INSTANCE.fromAddressDto(userDTO.getAddresses(), new NotificatorMappingContext());
-        updateUser.setName(userDTO.getName());
+        final Set<Role> createRole= RoleMapper.INSTANCE.fromRolesDTO(userDTO.getRole(),new NotificatorMappingContext());
+        updateUser.setUsername(userDTO.getUsername());
+        updateUser.setFirstName(userDTO.getFirstName());
+        updateUser.setLastName(userDTO.getLastName());
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setType(userDTO.getType());
-        updateUser.setPassword(userDTO.getPassword());
-        updateUser.setRole(userDTO.getRole());
+        updateUser.setPassword(encoder.encode(userDTO.getPassword()));
+        updateUser.setRoles(createRole);
         final User user = userRepository.save(updateUser);
         for (Address address : updateOrCreateAddress) {
             address.setUser(user);
@@ -81,10 +91,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO deleteUserById(int id) {
+    public UserDTO deleteUserById(Long id) {
         final User deleteUser = userRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
         userRepository.delete(deleteUser);
         return UserMapper.INSTANCE.toUserDto(deleteUser, new NotificatorMappingContext());
+    }
+
+    @Override
+    public UserDTO getUserByEmail(String email) throws Exception{
+        final User user = userRepository.findUserByEmail(email);
+
+        return UserMapper.INSTANCE.toUserDto(user,new NotificatorMappingContext());
     }
 }

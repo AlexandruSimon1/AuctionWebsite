@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
-    private static final int ID_VALUE = 1;
+    private static final Long ID_VALUE = 1L;
     private User firstUser;
     private User secondUser;
     private Address address;
@@ -38,7 +38,7 @@ public class UserServiceImplTest {
         userService = new UserServiceImpl(userRepository);
         List<Address> addresses = new ArrayList<>();
         address = new Address();
-        address.setId(ID_VALUE);
+        address.setId(1);
         address.setCity("Douala");
         address.setProvince("Cameron");
         address.setAddress("United");
@@ -46,16 +46,16 @@ public class UserServiceImplTest {
         addresses.add(address);
 
         firstUser = new User();
-        firstUser.setId(1);
-        firstUser.setName("Max Cameron");
+        firstUser.setId(ID_VALUE);
+        firstUser.setUsername("Max Cameron");
         firstUser.setType("user");
         firstUser.setAddresses(addresses);
         firstUser.setEmail("max@cameron.com");
         firstUser.setPassword("test");
 
         secondUser = new User();
-        secondUser.setId(1);
-        secondUser.setName("Max Cameron");
+        secondUser.setId(ID_VALUE);
+        secondUser.setUsername("Max Cameron");
         secondUser.setType("user");
         secondUser.setAddresses(addresses);
         secondUser.setEmail("max@cameron.com");
@@ -84,7 +84,7 @@ public class UserServiceImplTest {
         //then
         assertEquals(firstUser.getId(), userDTO.getId());
         assertEquals(firstUser.getEmail(), userDTO.getEmail());
-        assertEquals(firstUser.getName(), userDTO.getName());
+        assertEquals(firstUser.getUsername(), userDTO.getUsername());
         assertEquals(firstUser.getType(), userDTO.getType());
         verify(userRepository, times(1)).findById(ID_VALUE);
     }
@@ -99,7 +99,7 @@ public class UserServiceImplTest {
         UserDTO userDTO = userService.deleteUserById(ID_VALUE);
         assertEquals(firstUser.getId(), userDTO.getId());
         assertEquals(firstUser.getEmail(), userDTO.getEmail());
-        assertEquals(firstUser.getName(), userDTO.getName());
+        assertEquals(firstUser.getUsername(), userDTO.getUsername());
         assertEquals(firstUser.getType(), userDTO.getType());
     }
 
@@ -107,8 +107,8 @@ public class UserServiceImplTest {
     void updateUserById() {
         //given
         UserDTO dto = new UserDTO();
-        dto.setId(1);
-        dto.setName("Max Cameron");
+        dto.setId(ID_VALUE);
+        dto.setUsername("Max Cameron");
         dto.setType("user");
         dto.setEmail("max@cameron.com");
         //when
@@ -118,7 +118,7 @@ public class UserServiceImplTest {
         //then
         assertNotNull(updatedUser);
         assertEquals(firstUser.getId(), updatedUser.getId());
-        assertEquals(firstUser.getName(), updatedUser.getName());
+        assertEquals(firstUser.getUsername(), updatedUser.getUsername());
         assertEquals(firstUser.getType(), updatedUser.getType());
         assertEquals(firstUser.getEmail(), updatedUser.getEmail());
         verify(userRepository, times(1)).save(firstUser);
@@ -128,14 +128,14 @@ public class UserServiceImplTest {
     void createUser() {
         List<AddressDTO> addressDTOS = new ArrayList<>();
         AddressDTO addressDTO = new AddressDTO();
-        addressDTO.setId(ID_VALUE);
+        addressDTO.setId(1);
         addressDTO.setCity("Douala");
         addressDTO.setProvince("Cameron");
         addressDTO.setAddress("United");
         addressDTOS.add(addressDTO);
         UserDTO dto = new UserDTO();
-        dto.setId(1);
-        dto.setName("Max Cameron");
+        dto.setId(ID_VALUE);
+        dto.setUsername("Max Cameron");
         dto.setType("user");
         dto.setEmail("max@cameron.com");
         dto.setPassword("test");
@@ -146,7 +146,7 @@ public class UserServiceImplTest {
 
         assertNotNull(firstUser);
         assertEquals(firstUser.getId(), userDTO.getId());
-        assertEquals(firstUser.getName(), userDTO.getName());
+        assertEquals(firstUser.getUsername(), userDTO.getUsername());
         assertEquals(firstUser.getType(), userDTO.getType());
         assertEquals(firstUser.getEmail(), userDTO.getEmail());
     }
