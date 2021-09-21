@@ -9,3 +9,4 @@
 * Username and Password for Database are encrypted with Jasypt for security purpose
 * Jasypt Encrypt command CLI java -cp (path)\.m2\repository\org\jasypt\jasypt\1.9.3\jasypt-1.9.3.jar  org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="input" password=password algorithm=algorithm
 * For testing Auction Service please use Postman Collection added in test resources
+* Heroku URL for testing https://auction-backend-sys.herokuapp.com
