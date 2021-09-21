@@ -1,6 +1,5 @@
 package com.auctionwebsite.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +20,5 @@ public class UserDTO {
     private LocalDateTime creationDate;
     private String type;
     private List<AddressDTO> addresses;
-    @JsonIgnore
     private Set<RoleDTO> role = new HashSet<>();
 }
