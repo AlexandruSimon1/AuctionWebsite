@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = UserController.class)
 public class UserControllerTest {
-    private static final int ID_VALUE = 1;
+    private static final Long ID_VALUE = 1L;
     @Autowired
     private UserController userController;
     @Autowired
@@ -66,15 +66,15 @@ public class UserControllerTest {
         addressDTOS.add(address);
 
         firstUser = new UserDTO();
-        firstUser.setId(1);
-        firstUser.setName("Max Cameron");
+        firstUser.setId(ID_VALUE);
+        firstUser.setUsername("Max Cameron");
         firstUser.setType("user");
         firstUser.setAddresses(addressDTOS);
         firstUser.setEmail("max@cameron.com");
 
         secondUser = new UserDTO();
-        secondUser.setId(1);
-        secondUser.setName("Max Cameron");
+        secondUser.setId(ID_VALUE);
+        secondUser.setUsername("Max Cameron");
         secondUser.setType("user");
         secondUser.setAddresses(addressDTOS);
         secondUser.setEmail("max@cameron.com");
@@ -98,7 +98,7 @@ public class UserControllerTest {
     @Test
     void getUserById() throws Exception {
         //when
-        when(userService.getUserById(anyInt())).thenReturn(firstUser);
+        when(userService.getUserById(ID_VALUE)).thenReturn(firstUser);
         //then
         this.mockMvc.perform(get("/api/v1/users/{userId}", ID_VALUE)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -120,7 +120,7 @@ public class UserControllerTest {
     @Test
     void updateUserById() throws Exception {
         //when
-        when(userService.updateUserById(any(), anyInt())).thenReturn(secondUser);
+        when(userService.updateUserById(any(), ID_VALUE)).thenReturn(secondUser);
         //then
         this.mockMvc.perform(put("/api/v1/users/{userId}", firstUser.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

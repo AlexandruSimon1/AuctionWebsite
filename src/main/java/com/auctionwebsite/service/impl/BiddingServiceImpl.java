@@ -4,10 +4,7 @@ import com.auctionwebsite.dto.BiddingDTO;
 import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
 import com.auctionwebsite.mapper.*;
-import com.auctionwebsite.model.Address;
-import com.auctionwebsite.model.Auction;
-import com.auctionwebsite.model.Bidding;
-import com.auctionwebsite.model.User;
+import com.auctionwebsite.model.*;
 import com.auctionwebsite.repository.AddressRepository;
 import com.auctionwebsite.repository.AuctionRepository;
 import com.auctionwebsite.repository.BiddingRepository;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,6 +52,7 @@ public class BiddingServiceImpl implements BiddingService {
         final User existingUser = new User();
         final Auction existingAuction = AuctionMapper.INSTANCE.fromAuctionDto(biddingDTO.getAuction(), new NotificatorMappingContext());
         final List<Address> createAddress = AddressMapper.INSTANCE.fromAddressDto(biddingDTO.getUser().getAddresses(), new NotificatorMappingContext());
+        final Set<Role> createRole = RoleMapper.INSTANCE.fromRolesDTO(biddingDTO.getUser().getRole(), new NotificatorMappingContext());
         auctionRepository.findById(biddingDTO.getAuction().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.AUCTION_NOT_FOUND));
         userRepository.findById(biddingDTO.getUser().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         for (Address address : createAddress) {
@@ -65,11 +64,11 @@ public class BiddingServiceImpl implements BiddingService {
         }
         if (userRepository.findById(biddingDTO.getUser().getId()).isPresent()) {
             existingUser.setId(biddingDTO.getUser().getId());
-            existingUser.setName(biddingDTO.getUser().getName());
+            existingUser.setUsername(biddingDTO.getUser().getUsername());
             existingUser.setEmail(biddingDTO.getUser().getEmail());
             existingUser.setType(biddingDTO.getUser().getType());
             existingUser.setPassword(biddingDTO.getUser().getPassword());
-            existingUser.setRole(biddingDTO.getUser().getRole());
+            existingUser.setRoles(createRole);
             existingUser.setCreationDate(biddingDTO.getUser().getCreationDate());
             existingUser.setAddresses(createAddress);
             final User saveUser = userRepository.save(existingUser);
@@ -90,6 +89,7 @@ public class BiddingServiceImpl implements BiddingService {
         final User updateUser = new User();
         final List<Address> createAddress = AddressMapper.INSTANCE.fromAddressDto(biddingDTO.getUser().getAddresses(), new NotificatorMappingContext());
         final Auction existingAuction = AuctionMapper.INSTANCE.fromAuctionDto(biddingDTO.getAuction(), new NotificatorMappingContext());
+        final Set<Role> updateRole = RoleMapper.INSTANCE.fromRolesDTO(biddingDTO.getUser().getRole(), new NotificatorMappingContext());
         auctionRepository.findById(biddingDTO.getAuction().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.AUCTION_NOT_FOUND));
         userRepository.findById(biddingDTO.getUser().getId()).orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         for (Address address : createAddress) {
@@ -100,8 +100,8 @@ public class BiddingServiceImpl implements BiddingService {
             updateUser.setType(biddingDTO.getUser().getType());
             updateUser.setEmail(biddingDTO.getUser().getEmail());
             updateUser.setPassword(biddingDTO.getUser().getPassword());
-            updateUser.setRole(biddingDTO.getUser().getRole());
-            updateUser.setName(biddingDTO.getUser().getName());
+            updateUser.setRoles(updateRole);
+            updateUser.setUsername(biddingDTO.getUser().getUsername());
             updateUser.setCreationDate(biddingDTO.getUser().getCreationDate());
             updateUser.setAddresses(createAddress);
             updateBiding.setUser(updateUser);

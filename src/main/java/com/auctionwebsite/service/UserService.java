@@ -7,11 +7,13 @@ import java.util.List;
 public interface UserService {
     List<UserDTO> getAllUsers();
 
-    UserDTO getUserById(int id);
+    UserDTO getUserById(Long id);
 
     UserDTO createUser(UserDTO userDTO);
 
-    UserDTO updateUserById(UserDTO userDTO, int id);
+    UserDTO updateUserById(UserDTO userDTO, Long id);
 
-    UserDTO deleteUserById(int id);
+    UserDTO deleteUserById(Long id);
+
+    UserDTO getUserByEmail(String email) throws Exception;
 }
