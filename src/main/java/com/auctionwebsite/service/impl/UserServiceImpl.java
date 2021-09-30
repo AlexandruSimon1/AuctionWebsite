@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserById(Long id) {
+    public UserDTO getUserById(int id) {
         final User getUser = userRepository.findById(id).orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         return UserMapper.INSTANCE.toUserDto(getUser, new NotificatorMappingContext());
     }
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUserById(UserDTO userDTO, Long id) {
+    public UserDTO updateUserById(UserDTO userDTO, int id) {
         final User updateUser = userRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.USER_NOT_FOUND));
         final List<Address> updateOrCreateAddress = AddressMapper.INSTANCE.fromAddressDto(userDTO.getAddresses(), new NotificatorMappingContext());
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO deleteUserById(Long id) {
+    public UserDTO deleteUserById(int id) {
         final User deleteUser = userRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
         userRepository.delete(deleteUser);

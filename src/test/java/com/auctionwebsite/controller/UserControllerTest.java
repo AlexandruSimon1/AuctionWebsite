@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = UserController.class)
 public class UserControllerTest {
-    private static final Long ID_VALUE = 1L;
+    private static final int ID_VALUE = 1;
     @Autowired
     private UserController userController;
     @Autowired

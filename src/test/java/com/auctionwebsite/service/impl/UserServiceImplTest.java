@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
-    private static final Long ID_VALUE = 1L;
+    private static final int ID_VALUE = 1;
     private User firstUser;
     private User secondUser;
     private Address address;
