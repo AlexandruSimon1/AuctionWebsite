@@ -35,7 +35,7 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getUserById(@PathVariable Long userId) {
+    public UserDTO getUserById(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
 
@@ -51,7 +51,7 @@ public class UserController {
     @PatchMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO updateUserById(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
+    public UserDTO updateUserById(@PathVariable int userId, @RequestBody UserDTO userDTO) {
         return userService.updateUserById(userDTO, userId);
     }
 
@@ -59,7 +59,7 @@ public class UserController {
     @DeleteMapping(value = "/{userId}")
     //Response status is used for providing the status of our request
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public UserDTO deleteUserById(@PathVariable Long userId) {
+    public UserDTO deleteUserById(@PathVariable int userId) {
         return userService.deleteUserById(userId);
     }
 
