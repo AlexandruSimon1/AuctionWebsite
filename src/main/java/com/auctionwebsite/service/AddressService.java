@@ -14,4 +14,6 @@ public interface AddressService {
     AddressDTO updateAddressById(AddressDTO addressDTO, int id);
 
     AddressDTO deleteAddressById(int id);
+
+    List<AddressDTO> findAllAddressByUserId(int userId);
 }

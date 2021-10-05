@@ -1,8 +1,10 @@
 package com.auctionwebsite.controller;
 
+import com.auctionwebsite.dto.AddressDTO;
 import com.auctionwebsite.dto.BiddingDTO;
 import com.auctionwebsite.dto.PurchasingDTO;
 import com.auctionwebsite.dto.UserDTO;
+import com.auctionwebsite.service.AddressService;
 import com.auctionwebsite.service.BiddingService;
 import com.auctionwebsite.service.PurchasingService;
 import com.auctionwebsite.service.UserService;
@@ -22,6 +24,7 @@ public class UserController {
     private final UserService userService;
     private final BiddingService biddingService;
     private final PurchasingService purchasingService;
+    private final AddressService addressService;
 
     //Mapping name
     @GetMapping
@@ -77,5 +80,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<PurchasingDTO> getPurchasesByUserId(@PathVariable int userId) {
         return purchasingService.findAllPurchasingByUserId(userId);
+    }
+
+    //Mapping name
+    @GetMapping(value = "/{userId}/addresses")
+    //Response status is used for providing the status of our request
+    @ResponseStatus(HttpStatus.OK)
+    public List<AddressDTO> getAddressesByUserId(@PathVariable int userId) {
+        return addressService.findAllAddressByUserId(userId);
     }
 }
