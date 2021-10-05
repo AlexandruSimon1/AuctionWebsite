@@ -5,6 +5,7 @@ import com.auctionwebsite.exception.ApplicationException;
 import com.auctionwebsite.exception.ExceptionType;
 import com.auctionwebsite.mapper.AddressMapper;
 import com.auctionwebsite.mapper.NotificatorMappingContext;
+import com.auctionwebsite.mapper.PurchasingMapper;
 import com.auctionwebsite.model.Address;
 import com.auctionwebsite.repository.AddressRepository;
 import com.auctionwebsite.service.AddressService;
@@ -66,5 +67,11 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new ApplicationException(ExceptionType.ADDRESS_NOT_FOUND));
         addressRepository.deleteById(id);
         return AddressMapper.INSTANCE.toAddressDto(deleteAddress, new NotificatorMappingContext());
+    }
+
+    @Override
+    public List<AddressDTO> findAllAddressByUserId(int userId) {
+        return addressRepository.findAllAddressByUserId(userId).stream().map(allAddresses -> AddressMapper.INSTANCE.toAddressDto(allAddresses, new NotificatorMappingContext()))
+                .collect(Collectors.toList());
     }
 }

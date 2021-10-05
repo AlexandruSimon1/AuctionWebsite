@@ -14,7 +14,6 @@ import java.util.List;
 public class JwtResponse {
     private String token;
     private String type = "Bearer";
-    @JsonIgnore
     private Long id;
     @JsonIgnore
     private String username;
