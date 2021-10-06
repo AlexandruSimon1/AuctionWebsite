@@ -97,11 +97,4 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(deleteUser);
         return UserMapper.INSTANCE.toUserDto(deleteUser, new NotificatorMappingContext());
     }
-
-    @Override
-    public UserDTO getUserByEmail(String email) throws Exception{
-        final User user = userRepository.findUserByEmail(email);
-
-        return UserMapper.INSTANCE.toUserDto(user,new NotificatorMappingContext());
-    }
 }

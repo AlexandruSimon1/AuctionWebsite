@@ -65,6 +65,8 @@ public class PurchasingServiceImpl implements PurchasingService {
         if (userRepository.findById(purchasingDTO.getUser().getId()).isPresent()) {
             existingUser.setId(purchasingDTO.getUser().getId());
             existingUser.setUsername(purchasingDTO.getUser().getUsername());
+            existingUser.setFirstName(purchasingDTO.getUser().getFirstName());
+            existingUser.setLastName(purchasingDTO.getUser().getLastName());
             existingUser.setEmail(purchasingDTO.getUser().getEmail());
             existingUser.setType(purchasingDTO.getUser().getType());
             existingUser.setPassword(purchasingDTO.getUser().getPassword());
@@ -102,6 +104,8 @@ public class PurchasingServiceImpl implements PurchasingService {
             updateUser.setPassword(purchasingDTO.getUser().getPassword());
             updateUser.setRoles(updateRole);
             updateUser.setUsername(purchasingDTO.getUser().getUsername());
+            updateUser.setFirstName(purchasingDTO.getUser().getFirstName());
+            updateUser.setLastName(purchasingDTO.getUser().getLastName());
             updateUser.setCreationDate(purchasingDTO.getUser().getCreationDate());
             updateUser.setAddresses(createAddress);
             updatePurchasing.setUser(updateUser);

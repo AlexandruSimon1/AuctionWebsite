@@ -14,6 +14,4 @@ public interface UserService {
     UserDTO updateUserById(UserDTO userDTO, int id);
 
     UserDTO deleteUserById(int id);
-
-    UserDTO getUserByEmail(String email) throws Exception;
 }
