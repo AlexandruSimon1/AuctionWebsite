@@ -65,6 +65,8 @@ public class BiddingServiceImpl implements BiddingService {
         if (userRepository.findById(biddingDTO.getUser().getId()).isPresent()) {
             existingUser.setId(biddingDTO.getUser().getId());
             existingUser.setUsername(biddingDTO.getUser().getUsername());
+            existingUser.setFirstName(biddingDTO.getUser().getFirstName());
+            existingUser.setLastName(biddingDTO.getUser().getLastName());
             existingUser.setEmail(biddingDTO.getUser().getEmail());
             existingUser.setType(biddingDTO.getUser().getType());
             existingUser.setPassword(biddingDTO.getUser().getPassword());
@@ -102,6 +104,8 @@ public class BiddingServiceImpl implements BiddingService {
             updateUser.setPassword(biddingDTO.getUser().getPassword());
             updateUser.setRoles(updateRole);
             updateUser.setUsername(biddingDTO.getUser().getUsername());
+            updateUser.setFirstName(biddingDTO.getUser().getFirstName());
+            updateUser.setLastName(biddingDTO.getUser().getLastName());
             updateUser.setCreationDate(biddingDTO.getUser().getCreationDate());
             updateUser.setAddresses(createAddress);
             updateBiding.setUser(updateUser);
