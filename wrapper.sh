@@ -5,4 +5,4 @@ while ! exec 6<>/dev/tcp/${DATABASE_HOST}/${DATABASE_PORT}; do
 
 done
 echo ">> connected to MySQL database! <<"
-java -Dspring.profiles.active=local -Djasypt.encryptor.password=arthur -Djava.security.egd=file:/dev/./urandom -jar /opt/auction-spring-boot.jar
+java -Dspring.profiles.active=dev -Djasypt.encryptor.password=arthur -Djava.security.egd=file:/dev/./urandom -jar /opt/auction-spring-boot.jar
