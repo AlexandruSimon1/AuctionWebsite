@@ -125,6 +125,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>auction-spring-boot</finalName>
     </build>
 
     <repositories>

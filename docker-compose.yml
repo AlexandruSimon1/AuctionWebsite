@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  db:
+    image: mysql
+    container_name: mysqldb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=auction_db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 5432:3306
+
+  service:
+    image: arthur2104/auction
+    container_name: service
+    depends_on:
+      - db
+    ports:
+      - 8282:8282
+    environment:
+      - DATABASE_HOST=mysqldb
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=auction_db
+      - DATABASE_PORT=3306
+
