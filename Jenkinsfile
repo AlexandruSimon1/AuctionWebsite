@@ -27,8 +27,8 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword")]) {
                             bat "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            bat "docker image build -t ${dockerLogin}/${projectVersion} ."
-                            bat "docker push ${dockerLogin}/${projectVersion}"
+                            bat "docker image build -t ${dockerLogin}/auction ."
+                            bat "docker push ${dockerLogin}/auction"
                         }
                 echo "Building image and pushing it to DockerHub is successful done"
             }
