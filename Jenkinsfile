@@ -10,12 +10,12 @@ pipeline {
                 echo "Building ${projectArtifactId}:${projectVersion}"
             }
         }
-        stage("Test"){
-            steps {
-                bat "mvn -version"
-                bat "mvn test"
-            }
-        }
+//         stage("Test"){
+//             steps {
+//                 bat "mvn -version"
+//                 bat "mvn test"
+//             }
+//         }
         stage("Build JAR file"){
             steps{
                 bat "mvn install -Dmaven.test.skip=true"
@@ -49,6 +49,18 @@ pipeline {
                 echo "Server is up"
             }
         }
+//         stage("Newman Test"){
+//             steps{
+//                 echo "Starting Newman Test"
+//                 bat "newman run --disable-unicode https://www.getpostman.com/collections/345d1665e5bdd9ca448e"
+//             }
+//         }
+//         stage("JMeter Loading Test"){
+//             steps{
+//             echo "Starting the JMeter Loading Test"
+//             bat "jmeter -jjmeter.save.saveservice.output_format.xml -n -t D:/RestaurantAPI.jmx -l D:/report.jtl"
+//             }
+//         }
     }
     post {
         always {
