@@ -5,10 +5,10 @@ services:
     container_name: mysqldb
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=Sanea@21041990
       - MYSQL_DATABASE=auction_db
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
+      - MYSQL_PASSWORD=Sanea@21041990
     ports:
       - 5432:3306
 
@@ -22,7 +22,7 @@ services:
     environment:
       - DATABASE_HOST=mysqldb
       - DATABASE_USER=root
-      - DATABASE_PASSWORD=root
+      - DATABASE_PASSWORD=Sanea@21041990
       - DATABASE_NAME=auction_db
       - DATABASE_PORT=3306
 
