@@ -7,7 +7,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=Sanea@21041990
       - MYSQL_DATABASE=auction_db
-      - MYSQL_USER=root
+      - MYSQL_USER=alex_db
       - MYSQL_PASSWORD=Sanea@21041990
     ports:
       - 5432:3306
@@ -21,7 +21,7 @@ services:
       - 8282:8282
     environment:
       - DATABASE_HOST=mysqldb
-      - DATABASE_USER=root
+      - DATABASE_USER=alex_db
       - DATABASE_PASSWORD=Sanea@21041990
       - DATABASE_NAME=auction_db
       - DATABASE_PORT=3306
