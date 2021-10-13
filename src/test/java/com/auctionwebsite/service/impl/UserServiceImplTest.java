@@ -27,6 +27,7 @@ public class UserServiceImplTest {
     private User firstUser;
     private User secondUser;
     private Address address;
+    private AddressDTO addressDTO;
     @InjectMocks
     private UserServiceImpl userService;
     @Mock
@@ -106,11 +107,21 @@ public class UserServiceImplTest {
     @Test
     void updateUserById() {
         //given
+        List<AddressDTO> addressesDto = new ArrayList<>();
+        addressDTO = new AddressDTO();
+        addressDTO.setId(1);
+        addressDTO.setCity("Douala");
+        addressDTO.setProvince("Cameron");
+        addressDTO.setAddress("United");
+
+        addressesDto.add(addressDTO);
         UserDTO dto = new UserDTO();
         dto.setId(ID_VALUE);
         dto.setUsername("Max Cameron");
         dto.setType("user");
+        dto.setAddresses(addressesDto);
         dto.setEmail("max@cameron.com");
+        dto.setPassword("test");
         //when
         when(userRepository.findById(ID_VALUE)).thenReturn(Optional.of(firstUser));
         when(userRepository.save(firstUser)).thenReturn(firstUser);
