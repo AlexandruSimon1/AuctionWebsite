@@ -40,7 +40,7 @@ pipeline {
                 waitUntil(initialRecurrencePeriod: 2000) {
                     script {
                         def result =
-                        sh script: "curl --silent --output /dev/null http://localhost:8282/api/v1/auth/signin",
+                        sh script: "curl --silent --output /dev/null http://localhost:8282/api/v1/auth/signup",
                         returnStatus: true
                         return (result == 0)
                         }
