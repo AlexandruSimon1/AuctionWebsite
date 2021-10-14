@@ -43,7 +43,6 @@ pipeline {
                         bat script: "curl --silent --output /dev/null http://localhost:8282/api/v1/categories",
                         returnStatus: true
                         return (result == 0)
-                        echo result
                         }
                     }
                 }
