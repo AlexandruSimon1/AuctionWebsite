@@ -40,9 +40,9 @@ pipeline {
                 waitUntil(initialRecurrencePeriod: 2000) {
                     script {
                         def result =
-                        sh script: "curl --silent --output /dev/null -w \\n%{http_code} http://localhost:8282/api/v1/categories",
+                        sh script: "curl --silent --output /dev/null http://localhost:8282/api/v1/categories",
                         returnStatus: true
-                        return (result == 200)
+                        return (result == 0)
                         }
                     }
                 }
