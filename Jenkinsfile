@@ -39,9 +39,8 @@ pipeline {
                 timeout(time: 90, unit: 'SECONDS') {
                 waitUntil(initialRecurrencePeriod: 2000) {
                     script {
-                        final getHttpCode = "-w %{http_code}"
                         def result =
-                        bat script: "curl --silent --output /dev/null $getHttpCode http://localhost:8282/api/v1/categories",
+                        bat script: "curl --silent --output /dev/null -w \\n%{http_code} http://localhost:8282/api/v1/categories",
                         returnStatus: true
                         return (result == 200)
                         }
