@@ -40,7 +40,7 @@ pipeline {
                 waitUntil(initialRecurrencePeriod: 2000) {
                     script {
                         def result =
-                        bat script: "curl -XPOST --silent --output /dev/null http://localhost:8282/api/v1/auth/signup",
+                        bat script: "curl --silent --output /dev/null http://localhost:8282/api/v1/categories",
                         returnStatus: true
                         return (result == 0)
                         }
