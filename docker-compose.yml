@@ -1,28 +1,30 @@
 version: '3.7'
 services:
-  db:
-    image: mysql
-    container_name: mysqldb
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=Sanea@21041990
-      - MYSQL_DATABASE=auction_db
-      - MYSQL_USER=alex_db
-      - MYSQL_PASSWORD=Sanea@21041990
-    ports:
-      - 5432:3306
+# Docker MySQL DataBase Image
+#  db:
+#    image: mysql
+#    container_name: mysqldb
+#    restart: always
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=ENC(noOCw8kYO+i4MvlbjX7GE/9PXWFd6vRk)
+#      - MYSQL_DATABASE=auction_db
+#      - MYSQL_USER=ENC(J1KVAnZQaADnI5Vza7uahQ==)
+#      - MYSQL_PASSWORD=ENC(noOCw8kYO+i4MvlbjX7GE/9PXWFd6vRk)
+#    ports:
+#      - 5432:3306
 
   service:
     image: arthur2104/auction
     container_name: service
-    depends_on:
-      - db
+# Add in case if use Docker MySQL DataBase Image
+#    depends_on:
+#      - db
     ports:
       - 8282:8282
     environment:
-      - DATABASE_HOST=mysqldb
-      - DATABASE_USER=alex_db
-      - DATABASE_PASSWORD=Sanea@21041990
+      - DATABASE_HOST=alex-db.c7ptbobt3iqd.eu-central-1.rds.amazonaws.com
+      - DATABASE_USER=ENC(J1KVAnZQaADnI5Vza7uahQ==)
+      - DATABASE_PASSWORD=ENC(noOCw8kYO+i4MvlbjX7GE/9PXWFd6vRk)
       - DATABASE_NAME=auction_db
       - DATABASE_PORT=3306
 
