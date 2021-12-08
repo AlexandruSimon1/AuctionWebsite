@@ -35,32 +35,36 @@ pipeline {
         }
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
-                        withCredentials([string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]){
+                        withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
+                                        string(credentialsId: 'AuctionAWSURL',variable: "auctionUrl"),
+                                        usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
+                                            passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "decryptPassword"),
+                                        sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "awsUsername", keyFileVariable: 'keyfile')]){
                          script{
                         def remote = [:]
-                            remote.user = 'ec2-user'
-                            remote.host = 'ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
-                            remote.name = 'ec2-user'
-                            remote.identityFile = 'D:/Alexandru.pem'
+                            remote.user = '${awsUsername}'
+                            remote.host = '${auctionUrl}'
+                            remote.name = '${awsUsername}'
+                            remote.identityFile = '${keyfile}'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull arthur2104/auction"
-                            sshCommand remote: remote, command: "docker container run -d -p 80:8282 --name auction arthur2104/auction"
+                            sshCommand remote: remote, command: 'docker container run -e PASSWORD="${password}" -d -p 80:8282 --name auction arthur2104/auction'
                             sshCommand remote: remote, command: "exit"
-                        }
                         }
                         timeout(time: 90, unit: 'SECONDS') {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl --silent --output /dev/null ec2-18-184-137-30.eu-central-1.compute.amazonaws.com/api/v1/categories",
+                                sh script: "curl --silent --output /dev/null ${auctionUrl}/api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                                 }
                             }
+                        }
                         }
                         echo "Server is up"
                     }
