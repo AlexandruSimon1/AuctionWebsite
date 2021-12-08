@@ -38,9 +38,9 @@ pipeline {
 //                         withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
 //                                             passwordVariable: "dockerPassword")]) {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]){
-                        bat 'ssh -tt -i D:/Alexandru.pem ec2-user@ec2-18-184-137-30.eu-central-1.compute.amazonaws.com /bin/bash <<"ENDSSH"
+                        bat '''ssh -tt -i D:/Alexandru.pem ec2-user@ec2-18-184-137-30.eu-central-1.compute.amazonaws.com /bin/bash <<'ENDSSH'
                                                                                                                           docker login | docker pull arthur2104/auction
-                                                                                                                       ENDSSH'
+                                                                                                                       ENDSSH'''
 //                         sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
 //                         sshCommand remote: remote, command: 'docker kill $(docker ps -q)'
 //                         sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
