@@ -37,7 +37,7 @@ pipeline {
                     steps{
 //                         withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
 //                                             passwordVariable: "dockerPassword")]) {
-                        withCredentials([value(credentialsId: 'DecryptPassword',secretVariable: "decryptPasswordSecret")]){
+                        withCredentials([string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]){
                         bat "ssh -i D:/Alexandru.pem ec2-user@ec2-18-184-137-30.eu-central-1.compute.amazonaws.com"
 //                         sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                         sshCommand remote: remote, command: 'docker kill $(docker ps -q)'
