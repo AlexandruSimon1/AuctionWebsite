@@ -44,7 +44,7 @@ pipeline {
                             remote.identityFile = 'D:/Alexandru.pem'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            sshCommand remote: remote, command: 'docker kill $(docker ps -q)'
+                            sshCommand remote: remote, command: 'docker container kill $(docker ps -q)'
                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull arthur2104/auction"
