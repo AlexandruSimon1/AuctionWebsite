@@ -38,7 +38,7 @@ pipeline {
 //                         withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
 //                                             passwordVariable: "dockerPassword")]) {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]){
-                        bat "ssh -i D:/Alexandru.pem ec2-user@ec2-18-184-137-30.eu-central-1.compute.amazonaws.com"
+                        bat "ssh -i D:/Alexandru.pem ec2-user@ec2-18-184-137-30.eu-central-1.compute.amazonaws.com /bin/bash"
 //                         sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                         sshCommand remote: remote, command: 'docker kill $(docker ps -q)'
                         sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
@@ -51,7 +51,7 @@ pipeline {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl --silent --output /dev/null http://localhost:8282/api/v1/categories",
+                                sh script: "curl --silent --output /dev/null ec2-18-184-137-30.eu-central-1.compute.amazonaws.com/api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                                 }
