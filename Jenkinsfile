@@ -25,9 +25,9 @@ pipeline {
             steps {
                 echo "Building service image and pushing it to DockerHub"
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
-                        passwordVariable: "dockerPassword")]) {
+                        passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]) {
                             bat "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            bat "docker image build -t ${dockerLogin}/auction ."
+                            bat "docker image build -e PASSWORD=${decryptPassword} -t ${dockerLogin}/auction ."
                             bat "docker push ${dockerLogin}/auction"
                         }
                 echo "Building image and pushing it to DockerHub is successful done"
@@ -38,13 +38,13 @@ pipeline {
 //                         withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
 //                                             passwordVariable: "dockerPassword")]) {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]){
-                        sh '#!/bin/bash ssh -i D:/Alexandru.pem ec2-user@ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
+                        bat 'ssh -tt -i D:/Alexandru.pem ec2-user@ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
 //                         sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                         sshCommand remote: remote, command: 'docker kill $(docker ps -q)'
                         sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                         sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                         sshCommand remote: remote, command: "docker login | docker pull arthur2104/auction"
-                        sshCommand remote: remote, command: "docker run -d -e PASSWORD=${decryptPasswordSecret} -p 8080:8282 --name auction arthur2104/auction"
+                        sshCommand remote: remote, command: "docker run -d -e PASSWORD=${decryptPassword} -p 8080:8282 --name auction arthur2104/auction"
                         sshCommand remote: remote, command: "exit"
                         }
 //                         }
