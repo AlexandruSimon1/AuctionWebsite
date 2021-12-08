@@ -48,8 +48,8 @@ pipeline {
 //                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
 //                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull arthur2104/auction"
-                            sshCommand remote: remote, command: "docker run -d -e PASSWORD=${decryptPassword} -p 8080:8282 --name auction arthur2104/auction"
-                            sshCommand remote: remote, command: "exit"
+//                             sshCommand remote: remote, command: "docker run -d -e PASSWORD=${decryptPassword} -p 8080:8282 --name auction arthur2104/auction"
+//                             sshCommand remote: remote, command: "exit"
                         }
                         }
                         timeout(time: 90, unit: 'SECONDS') {
