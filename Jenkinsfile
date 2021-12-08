@@ -45,7 +45,8 @@ pipeline {
                             remote.user = '${awsUsername}'
                             remote.host = '${auctionUrl}'
                             remote.name = '${awsUsername}'
-                            remote.identityFile = '${keyfile}'
+                           // remote.identityFile='D:/Alexandru.pem'
+                            remote.identity = '${keyfile}'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
