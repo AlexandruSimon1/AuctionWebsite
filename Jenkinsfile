@@ -36,16 +36,15 @@ pipeline {
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
-                                        string(credentialsId: 'AuctionAWSURL',variable: "auctionUrl"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
-                                        sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "awsUsername", keyFileVariable: 'keyfile')]){
+                                        sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "auctionUrl", keyFileVariable: 'keyfile')]){
                          script{
                         echo "${auctionUrl}"
                         def remote = [:]
-                            remote.user = '${awsUsername}'
+                            remote.user = 'ec2-user'
                             remote.host = '${auctionUrl}'
-                            remote.name = '${awsUsername}'
+                            remote.name = 'ec2-user'
                             remote.identityFile='D:/Alexandru.pem'
                             //remote.identity = '${keyfile}'
                             remote.allowAnyHosts = 'true'
