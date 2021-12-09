@@ -27,7 +27,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]) {
                             bat "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            bat "docker image build -t ${dockerLogin}/auction ."
+                            bat "docker image build --build-arg PASSWORD=${decryptPassword} -t ${dockerLogin}/auction ."
                             bat "docker push ${dockerLogin}/auction"
                         }
                 echo "Building image and pushing it to DockerHub is successful done"
@@ -45,8 +45,8 @@ pipeline {
                             remote.user = '${awsUsername}'
                             remote.host = '${auctionUrl}'
                             remote.name = '${awsUsername}'
-                            //remote.identityFile='D:/Alexandru.pem'
-                            remote.identity = '${keyfile}'
+                            remote.identityFile='D:/Alexandru.pem'
+                            //remote.identity = '${keyfile}'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
