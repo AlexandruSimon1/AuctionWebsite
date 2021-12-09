@@ -39,14 +39,14 @@ pipeline {
                                         string(credentialsId: 'AuctionAWSURL',variable: "auctionUrl"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "decryptPassword"),
-                                        sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "awsUsername", keyVariable: 'keyfile')]){
+                                        sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "awsUsername", keyFileVariable: 'keyfile')]){
                          script{
                         def remote = [:]
                             remote.user = '${awsUsername}'
                             remote.host = '${auctionUrl}'
                             remote.name = '${awsUsername}'
                             //remote.identityFile='D:/Alexandru.pem'
-                            remote.identity = '${keyfile}'
+                            remote.identityFile = '${keyfile}'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
