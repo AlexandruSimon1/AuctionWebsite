@@ -38,9 +38,10 @@ pipeline {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         string(credentialsId: 'AuctionAWSURL',variable: "auctionUrl"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
-                                            passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "decryptPassword"),
+                                            passwordVariable: "dockerPassword"),
                                         sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "awsUsername", keyFileVariable: 'keyfile')]){
                          script{
+                        echo "${auctionUrl}"
                         def remote = [:]
                             remote.user = '${awsUsername}'
                             remote.host = '${auctionUrl}'
@@ -53,7 +54,7 @@ pipeline {
                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull arthur2104/auction"
-                            sshCommand remote: remote, command: 'docker container run -e PASSWORD="${password}" -d -p 80:8282 --name auction arthur2104/auction'
+                            sshCommand remote: remote, command: 'docker container run -e "PASSWORD=${password}" -d -p 80:8282 --name auction arthur2104/auction'
                             sshCommand remote: remote, command: "exit"
                         }
                         timeout(time: 90, unit: 'SECONDS') {
