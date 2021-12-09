@@ -1,6 +1,8 @@
 FROM openjdk:14
 #FROM bash:4.4
 #FROM alpine:3.7
+ARG PASSWORD=local
+ENV PASSWORD ${PASSWORD}
 # Copy jar file
 COPY target/*.jar  /opt/auction-spring-boot.jar
 ADD wrapper.sh wrapper.sh
