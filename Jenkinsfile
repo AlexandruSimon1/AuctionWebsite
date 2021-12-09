@@ -40,8 +40,7 @@ pipeline {
                                             passwordVariable: "dockerPassword"),
                                         sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "auctionUrl", keyFileVariable: 'keyfile')]){
                          script{
-                        echo "${auctionUrl}"
-                        export url='${auctionUrl}'
+                        echo sshagent(['AuctionAWS'])
                         def remote = [:]
                             remote.user = 'ec2-user'
                             remote.host = '${url}'
