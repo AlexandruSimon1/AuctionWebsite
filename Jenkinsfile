@@ -38,7 +38,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
-                                        file(credentialsId: 'AWSKeyPair', file: 'keyfile')]){
+                                        file(credentialsId: 'AWSKeyPair', variable: 'keyfile')]){
                          script{
                         def remote = [:]
                             remote.user = 'ec2-user'
