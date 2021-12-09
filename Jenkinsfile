@@ -41,9 +41,10 @@ pipeline {
                                         sshUserPrivateKey(credentialsId: "AuctionEC2Instance",usernameVariable: "auctionUrl", keyFileVariable: 'keyfile')]){
                          script{
                         echo "${auctionUrl}"
+                        export url='${auctionUrl}'
                         def remote = [:]
                             remote.user = 'ec2-user'
-                            remote.host = '${auctionUrl}'
+                            remote.host = '${url}'
                             remote.name = 'ec2-user'
                             remote.identityFile='D:/Alexandru.pem'
                             //remote.identity = '${keyfile}'
