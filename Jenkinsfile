@@ -44,8 +44,8 @@ pipeline {
                             remote.user = 'ec2-user'
                             remote.host = 'ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
                             remote.name = 'ec2-user'
-                            remote.identityFile='${keyfile}'
-                            //remote.identity = '${keyfile}'
+                            //remote.identityFile='${keyfile}'
+                            remote.identity = '${keyfile}'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
