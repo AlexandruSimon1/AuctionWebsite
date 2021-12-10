@@ -38,14 +38,14 @@ pipeline {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
-                                        file(credentialsId: 'AWSKeyPair', variable: 'keyfile')]){
+                                        sshUserPrivateKey(credentialsId: 'AuctionEC2Instance', usernameVariable: "userName",
+                                            keyFileVariable: "dockerPassword")]){
                          script{
                         def remote = [:]
-                            remote.user = 'ec2-user'
+                            remote.user = '${userName}'
                             remote.host = 'ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
-                            remote.name = 'ec2-user'
-                            //remote.identityFile='${keyfile}'
-                            remote.identity = '${keyfile}'
+                            remote.name = '${userName}'
+                            remote.identityFile = 'D:/Alexandru.pem'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
@@ -59,7 +59,7 @@ pipeline {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl --silent --output /dev/null ${auctionUrl}/api/v1/categories",
+                                sh script: "curl --silent --output /dev/null ec2-18-184-137-30.eu-central-1.compute.amazonaws.com/api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                                 }
