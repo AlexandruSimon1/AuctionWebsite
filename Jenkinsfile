@@ -35,16 +35,17 @@ pipeline {
         }
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
-                        withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
+                        withCredentials([string(credentialsId: 'DecryptPassword',variable: 'password'),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
-                                        sshUserPrivateKey(credentialsId: 'AuctionEC2Instance', usernameVariable: "userName",
-                                            keyFileVariable: "dockerPassword")]){
+                                        sshUserPrivateKey(credentialsId: 'AuctionEC2Instance',keyFileVariable: 'keyFile', usernameVariable: 'userName')]){
+                                            print 'keyFile=' + keyFile
+                                                        print 'username=' + userName
                          script{
                         def remote = [:]
-                            remote.user = '${userName}'
+                            remote.user = 'ec2-user'
                             remote.host = 'ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
-                            remote.name = '${userName}'
+                            remote.name = 'ec2-user'
                             remote.identityFile = 'D:/Alexandru.pem'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
