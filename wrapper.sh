@@ -5,4 +5,4 @@ while ! exec 6<>/dev/tcp/alex-db.c7ptbobt3iqd.eu-central-1.rds.amazonaws.com/330
 
 done
 echo ">> connected to MySQL database! <<"
-java -Dspring.profiles.active=dev -Djasypt.encryptor.password=$PASSWORD -Djava.security.egd=file:/dev/./urandom -jar /opt/auction-spring-boot.jar
+java -Dspring.profiles.active=dev -Djasypt.encryptor.password=${PASSWORD} -Djava.security.egd=file:/dev/./urandom -jar /opt/auction-spring-boot.jar
