@@ -27,7 +27,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]) {
                             sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            sh script: "docker image build --build-arg PASSWORD=${decryptPassword} -t ${dockerLogin}/auction ."
+                            sh script: 'docker image build --build-arg "PASSWORD=${decryptPassword}" -t ${dockerLogin}/auction .'
                             sh script: "docker push ${dockerLogin}/auction"
                         }
                 echo "Building image and pushing it to DockerHub is successful done"
