@@ -18,7 +18,7 @@ pipeline {
 //         }
         stage("Build JAR file"){
             steps{
-                bat "mvn install -Dmaven.test.skip=true"
+                sh script: "mvn install -Dmaven.test.skip=true"
             }
         }
         stage("Build image"){
@@ -26,9 +26,9 @@ pipeline {
                 echo "Building service image and pushing it to DockerHub"
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "decryptPassword")]) {
-                            bat "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            bat "docker image build --build-arg PASSWORD=${decryptPassword} -t ${dockerLogin}/auction ."
-                            bat "docker push ${dockerLogin}/auction"
+                            sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
+                            sh script: "docker image build --build-arg PASSWORD=${decryptPassword} -t ${dockerLogin}/auction ."
+                            sh script: "docker push ${dockerLogin}/auction"
                         }
                 echo "Building image and pushing it to DockerHub is successful done"
             }
