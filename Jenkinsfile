@@ -37,7 +37,7 @@ pipeline {
                     steps{
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: 'password'),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
-                                            passwordVariable: "dockerPassword")
+                                            passwordVariable: "dockerPassword")])
                          script{
                         def remote = [:]
                             remote.user = 'ec2-user'
