@@ -5,8 +5,8 @@ ARG PASSWORD=local
 ENV PASSWORD${PASSWORD}
 # Copy jar file
 COPY target/*.jar  /opt/auction-spring-boot.jar
-ADD wrapper.sh wrapper.sh
 #In case if we test docker locally with using docker MySQL Database
+#ADD wrapper.sh wrapper.sh
 #RUN bash -c 'chmod +x /wrapper.sh'
 #ENTRYPOINT ["/bin/bash", "/wrapper.sh"]
 

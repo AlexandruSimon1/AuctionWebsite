@@ -37,16 +37,13 @@ pipeline {
                     steps{
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: 'password'),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
-                                            passwordVariable: "dockerPassword"),
-                                        sshUserPrivateKey(credentialsId: 'AuctionEC2Instance',keyFileVariable: 'keyFile', usernameVariable: 'userName')]){
-                                            print 'keyFile=' + keyFile
-                                                        print 'username=' + userName
+                                            passwordVariable: "dockerPassword")
                          script{
                         def remote = [:]
                             remote.user = 'ec2-user'
                             remote.host = 'ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
                             remote.name = 'ec2-user'
-                            remote.identityFile = 'D:/Alexandru.pem'
+                            remote.identityFile = '~/home/ec2-user/keypair/Alexandru.pem'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
 //                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
@@ -65,7 +62,6 @@ pipeline {
                                 return (result == 0)
                                 }
                             }
-                        }
                         }
                         echo "Server is up"
                     }
