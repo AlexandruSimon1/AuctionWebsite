@@ -27,7 +27,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "password")]) {
                             sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            sh script: 'docker image build -t ${dockerLogin}/auction .'
+                            sh script: 'docker image build --build-arg PASSWORD=${password} -t ${dockerLogin}/auction .'
                             sh script: "docker push ${dockerLogin}/auction"
                         }
                 echo "Building image and pushing it to DockerHub is successful done"
@@ -41,7 +41,7 @@ pipeline {
                          script{
                         def remote = [:]
                             remote.user = 'ec2-user'
-                            remote.host = 'ec2-18-184-137-30.eu-central-1.compute.amazonaws.com'
+                            remote.host = 'ec2-3-70-24-74.eu-central-1.compute.amazonaws.com'
                             remote.name = 'ec2-user'
                             remote.identityFile = '~/home/ec2-user/keypair/Alexandru.pem'
                             remote.allowAnyHosts = 'true'
