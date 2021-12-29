@@ -25,10 +25,11 @@ pipeline {
             steps {
                 echo "Building service image and pushing it to DockerHub"
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
-                        passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "password")
-                ]) {
+                        passwordVariable: "dockerPassword"),
+                        string(credentialsId: 'DecryptPassword',variable: "password"),
+                        string(credentialsId: 'Database-RDS-URL',variable: "database")]) {
                             sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            sh script: "docker image build --build-arg PASSWORD=${password} -t ${dockerLogin}/auction ."
+                            sh script: "docker image build --build-arg PASSWORD=${password} --build-arg DATABASE=${database} -t ${dockerLogin}/auction ."
                             sh script: "docker push ${dockerLogin}/auction"
                 }
                 echo "Building image and pushing it to DockerHub is successful done"
@@ -54,7 +55,7 @@ pipeline {
                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
-                            sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} -d -p 80:8282 --name auction ${dockerLogin}/auction"
+                            sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 80:8282 --name auction ${dockerLogin}/auction"
                             sshCommand remote: remote, command: "exit"
                     }
                         timeout(time: 90, unit: 'SECONDS') {
