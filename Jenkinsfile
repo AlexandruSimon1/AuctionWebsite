@@ -21,9 +21,8 @@ pipeline {
                 sh script: "mvn install -Dmaven.test.skip=true"
             }
         }
-        stage("Build image"){
+        stage("Building service image and pushing it to DockerHub"){
             steps {
-                echo "Building service image and pushing it to DockerHub"
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "password")]) {
                             sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
@@ -35,11 +34,11 @@ pipeline {
         }
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
-                        withCredentials([string(credentialsId: 'DecryptPassword',variable: 'password'),
+                        withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
-                                            passwordVariable: "dockerPassword")])
+                                            passwordVariable: "dockerPassword")]){
                          script{
-                        def remote = [:]
+                            def remote = [:]
                             remote.user = 'ec2-user'
                             remote.host = 'ec2-3-70-24-74.eu-central-1.compute.amazonaws.com'
                             remote.name = 'ec2-user'
@@ -65,7 +64,7 @@ pipeline {
                         }
                         echo "Server is up"
                     }
-                }
+                }}
 //         stage("Deploy Locally"){
 //             steps{
 //                 bat "docker-compose --file docker-compose.yml up --detach"
