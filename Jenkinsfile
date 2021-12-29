@@ -36,6 +36,7 @@ pipeline {
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
+                                        string(credentialsId: 'Auction-EC2-URL',variable: "host"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
                                         sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity', passphraseVariable: '',
@@ -43,13 +44,12 @@ pipeline {
                          script{
                         def remote = [:]
                             remote.user = userName
-                            remote.host = 'ec2-3-70-24-74.eu-central-1.compute.amazonaws.com'
+                            remote.host = host
                             remote.name = userName
                             remote.identityFile = identity
                             remote.allowAnyHosts = 'true'
-                            //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
-//                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
-//                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
+                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
+                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
                             sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} -d -p 80:8282 --name auction ${dockerLogin}/auction"
@@ -59,7 +59,7 @@ pipeline {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl --silent --output /dev/null ec2-18-184-137-30.eu-central-1.compute.amazonaws.com/api/v1/categories",
+                                sh script: "curl --silent --output /dev/null ${host}/api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                                 }
