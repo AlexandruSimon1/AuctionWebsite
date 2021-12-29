@@ -37,13 +37,15 @@ pipeline {
                     steps{
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
-                                            passwordVariable: "dockerPassword")]){
+                                            passwordVariable: "dockerPassword"),
+                                        sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity', passphraseVariable: '',
+                                        usernameVariable: 'userName')]){
                          script{
                         def remote = [:]
-                            remote.user = 'ec2-user'
+                            remote.user = userName
                             remote.host = 'ec2-3-70-24-74.eu-central-1.compute.amazonaws.com'
-                            remote.name = 'ec2-user'
-                            remote.identityFile = '~/keypair/Alexandru.pem'
+                            remote.name = userName
+                            remote.identityFile = identity
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
 //                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
