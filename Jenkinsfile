@@ -21,8 +21,9 @@ pipeline {
                 sh script: "mvn install -Dmaven.test.skip=true"
             }
         }
-        stage("Building service image and pushing it to DockerHub"){
+        stage("Build Docker image"){
             steps {
+                echo "Building service image and pushing it to DockerHub"
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),string(credentialsId: 'DecryptPassword',variable: "password")]) {
                             sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
@@ -38,11 +39,11 @@ pipeline {
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword")]){
                          script{
-                            def remote = [:]
+                        def remote = [:]
                             remote.user = 'ec2-user'
                             remote.host = 'ec2-3-70-24-74.eu-central-1.compute.amazonaws.com'
                             remote.name = 'ec2-user'
-                            remote.identityFile = '/home/ec2-user/keypair/Alexandru.pem'
+                            remote.identityFile = '~/home/ec2-user/keypair/Alexandru.pem'
                             remote.allowAnyHosts = 'true'
                             //sshCommand remote: remote, command: "docker login -u ${dockerLogin} -p ${dockerPassword}"
 //                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
