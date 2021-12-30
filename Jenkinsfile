@@ -104,12 +104,12 @@ pipeline {
         //             bat "jmeter -jjmeter.save.saveservice.output_format.xml -n -t D:/RestaurantAPI.jmx -l D:/report.jtl"
         //             }
         //         }
-//                         stage("Clean Docker Images"){
-//                             steps{
-//                             echo "Starting Deleting Created Docker Images"
-//                             sh script: "docker rmi $(docker images -q)"
-//             }
-//         }
+                        stage("Clean Docker Images"){
+                            steps{
+                            echo "Starting Deleting Created Docker Images"
+                            sh script: "docker rmi $(docker images -q)"
+            }
+        }
     }
     post {
         always {
