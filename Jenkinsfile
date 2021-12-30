@@ -2,7 +2,7 @@ pipeline {
     agent any
     triggers {
         githubPush()
-      }
+    }
     stages {
         stage("Read from Maven POM"){
             steps{
@@ -50,7 +50,9 @@ pipeline {
                                         usernameVariable: 'userName')
                 ]){
                          script{
-                        def remote = [:]
+                        def remote = [
+                            :
+                        ]
                             remote.user = userName
                             remote.host = host
                             remote.name = userName
