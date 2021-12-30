@@ -27,7 +27,8 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),
                         string(credentialsId: 'DecryptPassword',variable: "password"),
-                        string(credentialsId: 'Database-RDS-URL',variable: "database")]) {
+                        string(credentialsId: 'Database-RDS-URL',variable: "database")
+                ]) {
                             sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sh script: "docker image build --build-arg PASSWORD=${password} --build-arg DATABASE=${database} -t ${dockerLogin}/auction ."
                             sh script: "docker push ${dockerLogin}/auction"
@@ -43,9 +44,12 @@ pipeline {
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
                                         sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity', passphraseVariable: '',
-                                        usernameVariable: 'userName')]){
+                                        usernameVariable: 'userName')
+                ]){
                          script{
-                        def remote = [:]
+                        def remote = [
+                            :
+                        ]
                             remote.user = userName
                             remote.host = host
                             remote.name = userName
@@ -100,6 +104,12 @@ pipeline {
         //             bat "jmeter -jjmeter.save.saveservice.output_format.xml -n -t D:/RestaurantAPI.jmx -l D:/report.jtl"
         //             }
         //         }
+//                         stage("Clean Docker Images"){
+//                             steps{
+//                             echo "Starting Deleting Created Docker Images"
+//                             sh script: "docker rmi $(docker images -q)"
+//             }
+//         }
     }
     post {
         always {
