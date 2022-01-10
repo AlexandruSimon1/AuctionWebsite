@@ -60,7 +60,7 @@ pipeline {
                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
-                            sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 80:8282 --name auction ${dockerLogin}/auction"
+                            sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 443:8282 --name auction ${dockerLogin}/auction"
                             sshCommand remote: remote, command: "exit"
                     }
                         timeout(time: 90, unit: 'SECONDS') {

@@ -21,6 +21,7 @@ services:
 #      - db
     ports:
       - 8282:8282
+      - 8282:443
     environment:
       - DATABASE_HOST=ENC(fRmNe946HJ1xrUUiZonVBW8fi2pMC8ZE2m1MaqMK/eftZmLp5AJTbBqCWyshLfaKzcvKmQat+9LzJJX9IBDzPA==)
       - DATABASE_USER=ENC(J1KVAnZQaADnI5Vza7uahQ==)
