@@ -1,8 +1,12 @@
 package com.auctionwebsite.service.impl;
 
 import com.auctionwebsite.dto.AddressDTO;
+import com.auctionwebsite.dto.ERoleDTO;
+import com.auctionwebsite.dto.RoleDTO;
 import com.auctionwebsite.dto.UserDTO;
 import com.auctionwebsite.model.Address;
+import com.auctionwebsite.model.ERole;
+import com.auctionwebsite.model.Role;
 import com.auctionwebsite.model.User;
 import com.auctionwebsite.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,10 +16,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,6 +33,8 @@ public class UserServiceImplTest {
     private User secondUser;
     private Address address;
     private AddressDTO addressDTO;
+    private Set<Role> roles;
+    private PasswordEncoder encoder;
     @InjectMocks
     private UserServiceImpl userService;
     @Mock
@@ -36,7 +43,13 @@ public class UserServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        roles = new HashSet<>();
         userService = new UserServiceImpl(userRepository);
+        Role role = new Role();
+        role.setId(1);
+        role.setName(ERole.ROLE_USER);
+        roles.add(role);
+
         List<Address> addresses = new ArrayList<>();
         address = new Address();
         address.setId(1);
@@ -44,16 +57,16 @@ public class UserServiceImplTest {
         address.setProvince("Cameron");
         address.setAddress("United");
 
-        addresses.add(address);
-
         firstUser = new User();
         firstUser.setId(ID_VALUE);
         firstUser.setUsername("Max Cameron");
         firstUser.setType("user");
-        firstUser.setAddresses(addresses);
         firstUser.setEmail("max@cameron.com");
         firstUser.setPassword("test");
-
+        firstUser.setRoles(roles);
+        address.setUser(firstUser);
+        addresses.add(address);
+        firstUser.setAddresses(addresses);
         secondUser = new User();
         secondUser.setId(ID_VALUE);
         secondUser.setUsername("Max Cameron");
@@ -107,6 +120,11 @@ public class UserServiceImplTest {
     @Test
     void updateUserById() {
         //given
+        Set<RoleDTO> roleDTOS = new HashSet<>();
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setId(1);
+        roleDTO.setName(ERoleDTO.ROLE_USER.ROLE_USER);
+        roleDTOS.add(roleDTO);
         List<AddressDTO> addressesDto = new ArrayList<>();
         addressDTO = new AddressDTO();
         addressDTO.setId(1);
@@ -122,6 +140,7 @@ public class UserServiceImplTest {
         dto.setAddresses(addressesDto);
         dto.setEmail("max@cameron.com");
         dto.setPassword("test");
+        dto.setRole(roleDTOS);
         //when
         when(userRepository.findById(ID_VALUE)).thenReturn(Optional.of(firstUser));
         when(userRepository.save(firstUser)).thenReturn(firstUser);
@@ -137,6 +156,11 @@ public class UserServiceImplTest {
 
     @Test
     void createUser() {
+        Set<RoleDTO> roleDTOS = new HashSet<>();
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setId(1);
+        roleDTO.setName(ERoleDTO.ROLE_USER.ROLE_USER);
+        roleDTOS.add(roleDTO);
         List<AddressDTO> addressDTOS = new ArrayList<>();
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setId(1);
@@ -149,9 +173,13 @@ public class UserServiceImplTest {
         dto.setUsername("Max Cameron");
         dto.setType("user");
         dto.setEmail("max@cameron.com");
+        dto.setFirstName("Max");
+        dto.setLastName("Cameron");
+        dto.setCreationDate(LocalDateTime.now());
         dto.setPassword("test");
+        dto.setRole(roleDTOS);
         dto.setAddresses(addressDTOS);
-
+        System.out.println(dto);
         when(userRepository.save(firstUser)).thenReturn(firstUser);
         UserDTO userDTO = userService.createUser(dto);
 
