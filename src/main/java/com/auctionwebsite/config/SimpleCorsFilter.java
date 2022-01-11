@@ -1,44 +1,38 @@
 package com.auctionwebsite.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
+@Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @PropertySource("application-${spring.profiles.active}.properties")
-public class SimpleCorsFilter implements Filter {
+public class SimpleCorsFilter extends CorsFilter {
     @Value("${ui.url.origin}")
     private String myAllowedApi;
 
-    @Override
-    public void destroy() {
+    public SimpleCorsFilter(CorsConfigurationSource source) {
+        super(source);
     }
 
     @Override
-    public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain) throws IOException, ServletException {
-        final HttpServletResponse response = (HttpServletResponse) res;
-        final HttpServletRequest request = (HttpServletRequest) req;
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "*");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, token");
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            chain.doFilter(req, res);
-        }
-    }
-
-    @Override
-    public void init(final FilterConfig filterConfig) {
+        response.addHeader("Access-Control-Allow-Headers",
+                "Access-Control-Allow-Origin, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        if (response.getHeader("Access-Control-Allow-Origin") == null)
+            response.addHeader("Access-Control-Allow-Origin", "*");
+        filterChain.doFilter(request, response);
     }
 }
