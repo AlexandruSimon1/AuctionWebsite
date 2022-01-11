@@ -81,4 +81,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
             }
         };
+    }
 }
