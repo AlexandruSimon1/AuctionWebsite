@@ -10,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableAutoConfiguration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Value("${ui.url.origin}")
-    private String myAllowedApi;
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins(myAllowedApi)
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").maxAge(3600);
-    }
+//    @Value("${ui.url.origin}")
+//    private String myAllowedApi;
+//
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**").allowedOrigins(myAllowedApi)
+//                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").maxAge(3600);
+//    }
 }
