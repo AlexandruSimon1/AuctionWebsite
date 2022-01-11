@@ -21,6 +21,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${ui.url.origin}")
     private String myAllowedApi;
 
+    @Value("${ui.github.origin}")
+    private String gitHubIO;
+
     //    @Override
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**").allowedOrigins(myAllowedApi)
@@ -39,6 +42,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         config.setAllowCredentials(true);
         config.addAllowedOrigin(System.getenv("origin"));
         config.addAllowedOrigin(myAllowedApi);
+        config.addAllowedOrigin(gitHubIO);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
