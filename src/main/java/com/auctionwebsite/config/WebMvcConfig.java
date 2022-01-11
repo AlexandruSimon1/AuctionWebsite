@@ -42,7 +42,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         config.setAllowCredentials(true);
         config.addAllowedOrigin(System.getenv("origin"));
         config.addAllowedOrigin(myAllowedApi);
-        config.addAllowedOrigin(gitHubIO);
+        config.addAllowedOrigin("https://alexandrusimon1.github.io");
+        config.addAllowedOrigin("https://alexandrusimon1.github.io/");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
