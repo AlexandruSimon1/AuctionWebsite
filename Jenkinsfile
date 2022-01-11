@@ -43,7 +43,6 @@ pipeline {
                     steps{
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         string(credentialsId: 'Auction-EC2-URL',variable: "host"),
-                                        string(credentialsId: 'Auction-System-URL',variable: "url"),
                                         string(credentialsId: 'Database-RDS-URL',variable: "database"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
@@ -68,7 +67,7 @@ pipeline {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl --silent --output /dev/null ${url}/api/v1/categories",
+                                sh script: "curl -k --silent --output /dev/null https://${host}/api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                             }
