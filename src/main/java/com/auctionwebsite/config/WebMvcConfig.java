@@ -22,14 +22,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**").allowedOrigins(myAllowedApi)
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").maxAge(8400);
     }
-    @Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(myAllowedApi));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
 }
