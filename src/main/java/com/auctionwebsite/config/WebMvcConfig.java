@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @PropertySource("application-${spring.profiles.active}.properties")
-@Configuration
+//@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("${ui.url.origin}")
@@ -29,26 +29,25 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**").allowedOrigins(myAllowedApi,gitHubIO)
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").maxAge(3600);
     }
-    @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
-        return (tomcat) -> tomcat.addConnectorCustomizers((connector) ->
-                ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setRelaxedQueryChars("[]"));
-    }
-
-    @Bean
-    public FilterRegistrationBean corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin(System.getenv("origin"));
-        config.addAllowedOrigin(myAllowedApi);
-        config.addAllowedOrigin("https://alexandrusimon1.github.io");
-        config.addAllowedOrigin("https://alexandrusimon1.github.io/");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
-    }
+//    @Bean
+//    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
+//        return (tomcat) -> tomcat.addConnectorCustomizers((connector) ->
+//                ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setRelaxedQueryChars("[]"));
+//    }
+//
+//    @Bean
+//    public FilterRegistrationBean corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin(System.getenv("origin"));
+//        config.addAllowedOrigin(myAllowedApi);
+//        config.addAllowedOrigin(gitHubIO);
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        source.registerCorsConfiguration("/**", config);
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//        bean.setOrder(0);
+//        return bean;
+//    }
 }
