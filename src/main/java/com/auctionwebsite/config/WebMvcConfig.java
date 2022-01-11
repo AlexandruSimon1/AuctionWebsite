@@ -24,11 +24,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${ui.github.origin}")
     private String gitHubIO;
 
-    //    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**").allowedOrigins(myAllowedApi)
-//                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").maxAge(3600);
-//    }
+        @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins(myAllowedApi,gitHubIO)
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").maxAge(3600);
+    }
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
         return (tomcat) -> tomcat.addConnectorCustomizers((connector) ->
