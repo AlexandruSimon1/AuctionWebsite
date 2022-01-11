@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/api/v1/categories")
