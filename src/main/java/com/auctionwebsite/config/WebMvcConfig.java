@@ -1,6 +1,9 @@
 package com.auctionwebsite.config;
 
+import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +21,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${ui.url.origin}")
     private String myAllowedApi;
 
-//    @Override
+    //    @Override
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**").allowedOrigins(myAllowedApi)
 //                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").maxAge(3600);
 //    }
+    @Bean
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
+        return (tomcat) -> tomcat.addConnectorCustomizers((connector) ->
+                ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setRelaxedQueryChars("[]"));
+    }
+
     @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
