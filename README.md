@@ -2,7 +2,8 @@
 
 ### Auction BackEnd Application
 * Version: 1.0
-* Spring Boot Version 2.4.2
+* Spring Boot Framework
+* Spring Security Framework
 * Most up-to-date implementation will be found in the branch master.
 * Final Project Software Development Academy Group Java Iasi 10
 * For deployment add Environment Variables to configuration jasypt.encryptor.password=**** spring.profiles.active=local
