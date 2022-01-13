@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().and()
+        http.cors().and()
 //                .headers()
 //                // the headers you want here. This solved all my CORS problems!
 //                .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", myAllowedApi))
