@@ -20,7 +20,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://alexandrusimon1.github.io/AuctionFE/")
+                .allowedOrigins("https://alexandrusimon1.github.io")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .maxAge(3600)
                 .allowCredentials(true);
