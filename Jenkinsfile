@@ -56,8 +56,8 @@ pipeline {
                             remote.name = userName
                             remote.identityFile = identity
                             remote.allowAnyHosts = 'true'
-                            sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
-                            sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
+//                             sshCommand remote: remote, command: 'docker container kill $(docker ps -a -q)'
+//                             sshCommand remote: remote, command: 'docker rm $(docker ps -a -q)'
                             sshCommand remote: remote, command: 'docker rmi $(docker images -q)'
                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
                             sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 443:8443 --name auction ${dockerLogin}/auction"
