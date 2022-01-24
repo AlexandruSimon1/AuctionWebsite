@@ -22,12 +22,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.dentrassi.crypto</groupId>
-            <artifactId>pem-keystore</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
