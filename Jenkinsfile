@@ -67,7 +67,7 @@ pipeline {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl -k --silent --output /dev/null http://${host}/auction-system-api/api/v1/categories",
+                                sh script: "curl -k --silent --output /dev/null http://${host}:82/auction-system-api/api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                             }
