@@ -56,8 +56,8 @@ pipeline {
                             remote.name = userName
                             remote.identityFile = identity
                             remote.allowAnyHosts = 'true'
-   //                         sshCommand remote: remote, command: 'docker container kill auction'
-   //                         sshCommand remote: remote, command: 'docker rm -v auction'
+                            sshCommand remote: remote, command: 'docker container kill auction'
+                            sshCommand remote: remote, command: 'docker rm -v auction'
                             sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
                             sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 82:8443 --name auction ${dockerLogin}/auction"
@@ -67,7 +67,7 @@ pipeline {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl -k --silent --output /dev/null http://localhost:8443/auction-system-api/api/v1/categories",
+                                sh script: "curl -k --silent --output /dev/null http://${host}:82/auction-system-api/api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                             }
