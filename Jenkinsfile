@@ -108,7 +108,7 @@ pipeline {
                         stage("Clean Docker Images"){
                             steps{
                             echo "Starting Deleting Created Docker Images"
-                            sh script: 'docker rmi -f $(docker images -q)'
+                            sh script: 'docker rmi $(docker images -q)'
             }
         }
     }
