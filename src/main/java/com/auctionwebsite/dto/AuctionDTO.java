@@ -1,6 +1,7 @@
 package com.auctionwebsite.dto;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,9 @@ public class AuctionDTO {
     private String photos;
     private int minimumPrice;
     private int buyNow;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime endDate;
     private CategoryDTO category;
 }
