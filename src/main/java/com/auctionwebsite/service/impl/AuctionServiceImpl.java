@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,8 +58,8 @@ public class AuctionServiceImpl implements AuctionService {
         createAuction.setMinimumPrice(auctionDTO.getMinimumPrice());
         createAuction.setBuyNow(auctionDTO.getBuyNow());
         createAuction.setPhotos(auctionDTO.getPhotos());
-        createAuction.setStartDate(LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest")));
-        createAuction.setEndDate(LocalDateTime.ofInstant(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS), ZoneId.of("Europe/Bucharest")));
+        createAuction.setStartDate(Date.from(Instant.now()));
+        createAuction.setEndDate(Date.from(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS)));
         final Auction saveAuction = auctionRepository.save(createAuction);
         if (categoryRepository.findById(auctionDTO.getCategory().getId()).isPresent()) {
             category.setId(auctionDTO.getCategory().getId());
