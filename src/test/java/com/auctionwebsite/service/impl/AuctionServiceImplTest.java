@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +30,8 @@ public class AuctionServiceImplTest {
     private static final int ID_VALUE = 1;
     private Auction firstAuction;
     private Auction secondAuction;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private Date startDate;
+    private Date endDate;
     @InjectMocks
     private AuctionServiceImpl auctionService;
     @Mock
@@ -40,8 +41,8 @@ public class AuctionServiceImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         auctionService = new AuctionServiceImpl(auctionRepository);
-        startDate = LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest"));
-        endDate = LocalDateTime.ofInstant(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS), ZoneId.of("Europe/Bucharest"));
+        startDate = Date.from(Instant.now());
+        endDate = Date.from(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS));
 
         firstAuction = new Auction();
         firstAuction.setId(ID_VALUE);

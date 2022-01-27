@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,7 +80,7 @@ public class AuctionController {
         return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getEndDate))
-                .filter(auction -> auction.getEndDate().isAfter(LocalDateTime.ofInstant(Instant.now(),  ZoneId.of("Europe/Bucharest"))))
+                .filter(auction -> auction.getEndDate().after(Date.from(Instant.now())))
                 .limit(6)
                 .collect(Collectors.toList());
     }
@@ -89,7 +90,7 @@ public class AuctionController {
         return auctionService.getAllAuctions()
                 .stream()
                 .sorted(Comparator.comparing(AuctionDTO::getEndDate).reversed())
-                .filter(auction -> auction.getEndDate().isBefore(LocalDateTime.ofInstant(Instant.now(),  ZoneId.of("Europe/Bucharest"))))
+                .filter(auction -> auction.getEndDate().before(Date.from(Instant.now())))
                 .limit(6)
                 .collect(Collectors.toList());
     }

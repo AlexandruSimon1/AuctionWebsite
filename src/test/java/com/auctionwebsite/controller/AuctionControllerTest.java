@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -47,8 +48,8 @@ public class AuctionControllerTest {
     private AuctionServiceImpl auctionService;
     private AuctionDTO firstAuction;
     private AuctionDTO secondAuction;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private Date startDate;
+    private Date endDate;
     private ObjectMapper mapper = new ObjectMapper();
     @BeforeEach
     void setUp() {
@@ -59,8 +60,8 @@ public class AuctionControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .build();
         //Inserting the data in order to be able to do the test of the endpoints
-        startDate = LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest"));
-        endDate = LocalDateTime.ofInstant(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS), ZoneId.of("Europe/Bucharest"));
+        startDate = Date.from(Instant.now());
+        endDate = Date.from(Instant.now().plus(AUCTION_DAYS, ChronoUnit.DAYS));
 
         firstAuction = new AuctionDTO();
         firstAuction.setId(ID_VALUE);
