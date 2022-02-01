@@ -4,12 +4,12 @@ import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +35,8 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "creation_date")
-    private LocalDateTime creationDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date creationDate;
     @Column(name = "type")
     private String type;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -54,7 +55,7 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.username = username;
-        this.creationDate = LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest"));
+        this.creationDate = Date.from(Instant.now());
         this.firstName = firstName;
         this.lastName = lastName;
     }

@@ -1,9 +1,6 @@
 package com.auctionwebsite.controller;
 
-import com.auctionwebsite.dto.AddressDTO;
-import com.auctionwebsite.dto.BiddingDTO;
-import com.auctionwebsite.dto.PurchasingDTO;
-import com.auctionwebsite.dto.UserDTO;
+import com.auctionwebsite.dto.*;
 import com.auctionwebsite.service.AddressService;
 import com.auctionwebsite.service.BiddingService;
 import com.auctionwebsite.service.PurchasingService;
