@@ -2,8 +2,10 @@ package com.auctionwebsite.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +19,8 @@ public class UserDTO {
     private String username;
     private String firstName;
     private String lastName;
-    private LocalDateTime creationDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date creationDate;
     private String type;
     private List<AddressDTO> addresses;
     private Set<RoleDTO> role = new HashSet<>();

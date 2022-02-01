@@ -13,7 +13,7 @@
     <include file="db/changelog/dev/auction_table.sql"/>
     <include file="db/changelog/dev/binding_table.sql"/>
     <include file="db/changelog/dev/purchasing_table.sql"/>
-    <include file="db/changelog/dev/role_insert_values.sql"/>
+<!--    <include file="db/changelog/dev/role_insert_values.sql"/>-->
 <!--    <include file="db/changelog/dev/category_insert_values.sql"/>-->
 <!--    <include file="db/changelog/dev/user_insert_values.sql"/>-->
 <!--    <include file="db/changelog/dev/auction_insert_values.sql"/>-->

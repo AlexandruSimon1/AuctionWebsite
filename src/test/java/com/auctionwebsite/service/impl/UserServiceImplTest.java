@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -175,7 +176,7 @@ public class UserServiceImplTest {
         dto.setEmail("max@cameron.com");
         dto.setFirstName("Max");
         dto.setLastName("Cameron");
-        dto.setCreationDate(LocalDateTime.now());
+        dto.setCreationDate(Date.from(Instant.now()));
         dto.setPassword("test");
         dto.setRole(roleDTOS);
         dto.setAddresses(addressDTOS);

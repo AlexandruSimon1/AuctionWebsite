@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -60,7 +59,7 @@ public class UserServiceImpl implements UserService {
         createUser.setType(userDTO.getType());
         createUser.setPassword(encoder.encode(userDTO.getPassword()));
         createUser.setRoles(createRole);
-        createUser.setCreationDate(LocalDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Bucharest")));
+        createUser.setCreationDate(Date.from(Instant.now()));
         final User saveUser = userRepository.save(createUser);
         for (Address address : createAddress) {
             address.setUser(saveUser);
