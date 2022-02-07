@@ -9,7 +9,6 @@ import com.auctionwebsite.service.AmazonService;
 import com.auctionwebsite.service.AuctionService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,12 +17,10 @@ import java.util.*;
 
 import static org.apache.http.entity.ContentType.*;
 
-@PropertySource("application-${spring.profiles.active}.properties")
 @Service
 @AllArgsConstructor
 public class AmazonServiceImpl implements AmazonService {
-    @Value("${amazon.s3.bucket}")
-    private String bucket;
+    private final String bucket = "photos-bucket-simon";
     private final FileStore fileStore;
     private final AuctionRepository repository;
     private final AuctionService auctionService;
