@@ -58,6 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/auctions/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/s3/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
