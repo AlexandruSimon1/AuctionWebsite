@@ -8,7 +8,6 @@ import com.auctionwebsite.repository.AuctionRepository;
 import com.auctionwebsite.service.AmazonService;
 import com.auctionwebsite.service.AuctionService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +20,7 @@ import static org.apache.http.entity.ContentType.*;
 @AllArgsConstructor
 public class AmazonServiceImpl implements AmazonService {
     private final String bucket = "photos-bucket-simon";
+    private final String imagePath ="auction-images";
     private final FileStore fileStore;
     private final AuctionRepository repository;
     private final AuctionService auctionService;
@@ -38,7 +38,7 @@ public class AmazonServiceImpl implements AmazonService {
                 IMAGE_JPEG.getMimeType()).contains(file.getContentType())) {
             throw new IllegalStateException("File uploaded is not an image");
         }
-        String path = String.format("%s/%s", bucket, UUID.randomUUID());
+        String path = String.format("%s/%s", bucket, imagePath);
         String fileName = String.format("%s", file.getOriginalFilename());
         AuctionDTO searchAuction = auctionService.getAuctionById(id);
            try {
