@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS auction
     title         VARCHAR(255),
     description   VARCHAR(255),
     photos        VARCHAR(255),
+    image_path    VARCHAR(255),
     category_id   INT,
     minimum_price INT,
     buy_now       INT,

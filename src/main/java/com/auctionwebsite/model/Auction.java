@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +26,8 @@ public class Auction implements Serializable {
     private String description;
     @Column(name = "photos")
     private String photos;
+    @Column(name = "image_path")
+    private String imagePath;
     @Column(name = "minimum_price")
     private int minimumPrice;
     @Column(name = "buy_now")

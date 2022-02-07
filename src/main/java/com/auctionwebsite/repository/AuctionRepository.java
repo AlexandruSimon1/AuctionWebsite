@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface AuctionRepository extends JpaRepository<Auction, Integer> {
     List<Auction> findAllAuctionsByCategoryId(int categoryId);
+    Auction findAuctionByPhotos(String photos);
 }
