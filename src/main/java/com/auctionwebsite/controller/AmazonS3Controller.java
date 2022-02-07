@@ -18,11 +18,11 @@ public class AmazonS3Controller {
     AmazonServiceImpl service;
 
     @PostMapping(
-            path = "/upload",
+            path = "/upload/{auctionId}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<AuctionDTO> saveTodo(@RequestParam("auctionId") Integer id,
+    public ResponseEntity<AuctionDTO> saveTodo(@PathVariable("auctionId") Integer id,
                                                @RequestParam("file") MultipartFile file) {
         return new ResponseEntity<>(service.saveFile(id, file), HttpStatus.OK);
     }
