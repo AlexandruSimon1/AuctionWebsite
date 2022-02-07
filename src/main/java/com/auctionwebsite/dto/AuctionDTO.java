@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -13,6 +12,7 @@ public class AuctionDTO {
     private String title;
     private String description;
     private String photos;
+    private String imagePath;
     private int minimumPrice;
     private int buyNow;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

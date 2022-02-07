@@ -1,10 +1,10 @@
 package com.auctionwebsite.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +15,7 @@ import java.util.Set;
 public class UserDTO {
     private int id;
     private String email;
+    @JsonIgnore
     private String password;
     private String username;
     private String firstName;
