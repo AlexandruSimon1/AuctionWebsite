@@ -69,7 +69,6 @@ public class BiddingServiceImpl implements BiddingService {
             existingUser.setLastName(biddingDTO.getUser().getLastName());
             existingUser.setEmail(biddingDTO.getUser().getEmail());
             existingUser.setType(biddingDTO.getUser().getType());
-            existingUser.setPassword(biddingDTO.getUser().getPassword());
             existingUser.setRoles(createRole);
             existingUser.setCreationDate(biddingDTO.getUser().getCreationDate());
             existingUser.setAddresses(createAddress);
@@ -101,7 +100,6 @@ public class BiddingServiceImpl implements BiddingService {
             updateUser.setId(biddingDTO.getUser().getId());
             updateUser.setType(biddingDTO.getUser().getType());
             updateUser.setEmail(biddingDTO.getUser().getEmail());
-            updateUser.setPassword(biddingDTO.getUser().getPassword());
             updateUser.setRoles(updateRole);
             updateUser.setUsername(biddingDTO.getUser().getUsername());
             updateUser.setFirstName(biddingDTO.getUser().getFirstName());
