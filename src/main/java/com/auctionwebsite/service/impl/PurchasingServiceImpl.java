@@ -69,7 +69,6 @@ public class PurchasingServiceImpl implements PurchasingService {
             existingUser.setLastName(purchasingDTO.getUser().getLastName());
             existingUser.setEmail(purchasingDTO.getUser().getEmail());
             existingUser.setType(purchasingDTO.getUser().getType());
-            existingUser.setPassword(purchasingDTO.getUser().getPassword());
             existingUser.setRoles(createRole);
             existingUser.setCreationDate(purchasingDTO.getUser().getCreationDate());
             existingUser.setAddresses(createAddress);
@@ -101,7 +100,6 @@ public class PurchasingServiceImpl implements PurchasingService {
             updateUser.setId(purchasingDTO.getUser().getId());
             updateUser.setType(purchasingDTO.getUser().getType());
             updateUser.setEmail(purchasingDTO.getUser().getEmail());
-            updateUser.setPassword(purchasingDTO.getUser().getPassword());
             updateUser.setRoles(updateRole);
             updateUser.setUsername(purchasingDTO.getUser().getUsername());
             updateUser.setFirstName(purchasingDTO.getUser().getFirstName());
