@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         updateUser.setLastName(userDTO.getLastName());
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setType(userDTO.getType());
-        updateUser.setPassword(encoder.encode(userDTO.getPassword()));
+//        updateUser.setPassword(encoder.encode(userDTO.getPassword()));
         updateUser.setRoles(createRole);
         final User user = userRepository.save(updateUser);
         for (Address address : updateOrCreateAddress) {
