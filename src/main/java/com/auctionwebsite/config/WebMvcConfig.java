@@ -26,7 +26,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/auction-system-api/**")
+        registry.addMapping("/api/auction-sys-api/**")
                 .allowedOrigins(gitHubIO, myAllowedApi)
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .maxAge(3600)

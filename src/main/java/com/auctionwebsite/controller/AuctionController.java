@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/api/v1/auctions")
+@RequestMapping("/v1/auctions")
 public class AuctionController {
     private final AuctionService auctionService;
     private final BiddingService biddingService;

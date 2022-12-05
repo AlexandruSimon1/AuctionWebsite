@@ -77,22 +77,6 @@ pipeline {
                 }
             }
         }
-        //         stage("Deploy Locally"){
-        //             steps{
-        //                 bat "docker-compose --file docker-compose.yml up --detach"
-        //                 timeout(time: 90, unit: 'SECONDS') {
-        //                 waitUntil(initialRecurrencePeriod: 2000) {
-        //                     script {
-        //                         def result =
-        //                         sh script: "curl --silent --output /dev/null http://localhost:8282/api/v1/categories",
-        //                         returnStatus: true
-        //                         return (result == 0)
-        //                         }
-        //                     }
-        //                 }
-        //                 echo "Server is up"
-        //             }
-        //         }
         //         stage("Newman Test"){
         //             steps{
         //                 echo "Starting Newman Test"

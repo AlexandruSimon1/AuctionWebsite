@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/api/v1/users")
+@RequestMapping("/v1/users")
 public class UserController {
     private final UserService userService;
     private final BiddingService biddingService;
