@@ -1,6 +1,6 @@
 #!/usr/bin/bash
-while ! exec 6<>/dev/tcp/${DATABASE}/3306; do
-    echo "Trying to connect to MySQL at Amazon RDS Database..."
+while ! exec 6<>/dev/tcp/${DATABASE}/3309; do
+    echo "Trying to connect to MySQL at Server Database..."
     sleep 10
 done
 echo ">> connected to MySQL database! <<"
