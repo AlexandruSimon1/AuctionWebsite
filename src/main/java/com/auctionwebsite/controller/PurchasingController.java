@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/api/v1/purchases")
+@RequestMapping("/v1/purchases")
 public class PurchasingController {
     private final PurchasingService purchasingService;
 

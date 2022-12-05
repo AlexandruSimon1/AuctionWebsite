@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/api/v1/s3")
+@RequestMapping("/v1/s3")
 public class AmazonS3Controller {
     AmazonServiceImpl service;
 

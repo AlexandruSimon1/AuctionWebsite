@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auction-sys
+  name: auction-sys
+  namespace: deployment-service
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  selector:
+    matchLabels:
+      app: auction-sys
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: auction-sys
+    spec:
+      containers:
+        - image: arthur2104/auction:latest
+          imagePullPolicy: Always
+          name: auction-sys
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 512Mi
+              cpu: "1"
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: auction-sys
+  name: auction-sys
+  namespace: deployment-service
+spec:
+  allocateLoadBalancerNodePorts: true
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - port: 8443
+      protocol: TCP
+      targetPort: 8443
+      nodePort: 31598
+  selector:
+    app: auction-sys
+  sessionAffinity: None
+  type: LoadBalancer

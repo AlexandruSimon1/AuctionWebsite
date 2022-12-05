@@ -56,8 +56,8 @@ pipeline {
                             remote.name = userName
                             remote.identityFile = identity
                             remote.allowAnyHosts = 'true'
-                            sshCommand remote: remote, command: 'docker container kill auction'
-                            sshCommand remote: remote, command: 'docker rm -v auction'
+                           // sshCommand remote: remote, command: 'docker container kill auction'
+                          //  sshCommand remote: remote, command: 'docker rm -v auction'
                             sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
                             sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 82:8443 --name auction ${dockerLogin}/auction"
@@ -77,22 +77,6 @@ pipeline {
                 }
             }
         }
-        //         stage("Deploy Locally"){
-        //             steps{
-        //                 bat "docker-compose --file docker-compose.yml up --detach"
-        //                 timeout(time: 90, unit: 'SECONDS') {
-        //                 waitUntil(initialRecurrencePeriod: 2000) {
-        //                     script {
-        //                         def result =
-        //                         sh script: "curl --silent --output /dev/null http://localhost:8282/api/v1/categories",
-        //                         returnStatus: true
-        //                         return (result == 0)
-        //                         }
-        //                     }
-        //                 }
-        //                 echo "Server is up"
-        //             }
-        //         }
         //         stage("Newman Test"){
         //             steps{
         //                 echo "Starting Newman Test"

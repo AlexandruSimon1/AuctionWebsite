@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/api/v1/biddings")
+@RequestMapping("/v1/biddings")
 public class BiddingController {
     private final BiddingService biddingService;
 
