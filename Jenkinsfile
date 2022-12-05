@@ -21,7 +21,7 @@ pipeline {
         //         }
         stage("Build JAR file"){
             steps{
-                sh script: "mvn install -Dmaven.test.skip=true"
+                sh script: "mvn install -Dmaven.test.skip=true -B"
             }
         }
         stage("Build Docker image"){
@@ -56,8 +56,8 @@ pipeline {
                             remote.name = userName
                             remote.identityFile = identity
                             remote.allowAnyHosts = 'true'
-                           // sshCommand remote: remote, command: 'docker container kill auction'
-                          //  sshCommand remote: remote, command: 'docker rm -v auction'
+                            sshCommand remote: remote, command: 'docker container kill auction'
+                            shCommand remote: remote, command: 'docker rm -v auction'
                             sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
                             sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 82:8443 --name auction ${dockerLogin}/auction"
