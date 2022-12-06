@@ -21,7 +21,7 @@ pipeline {
         //         }
         stage("Build JAR file"){
             steps{
-                sh script: "mvn install -Dmaven.test.skip=true -B"
+                sh script: "mvn clean install spring-boot:repackage -Dmaven.test.skip=true -B"
             }
         }
         stage("Build Docker image"){
