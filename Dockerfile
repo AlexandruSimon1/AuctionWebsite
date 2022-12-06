@@ -7,4 +7,4 @@ ENV DATABASE ${DATABASE}
 COPY target/*.jar  /opt/auction-spring-boot.jar
 ADD wrapper.sh wrapper.sh
 RUN bash -c 'chmod +x /wrapper.sh'
-ENTRYPOINT ["/usr/bin/sh", "/wrapper.sh", "PASSWORD=${PASSWORD}", "DATABASE=${DATABASE}"]
+ENTRYPOINT ["/usr/bin/bash", "/wrapper.sh", "PASSWORD=${PASSWORD}", "DATABASE=${DATABASE}"]
