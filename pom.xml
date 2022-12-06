@@ -15,7 +15,7 @@
     <description>Auction Final project for SDAcademy</description>
     <packaging>jar</packaging>
     <properties>
-        <java.version>8</java.version>
+        <java.version>11</java.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <spring.boot.version>3.0.0</spring.boot.version>
     </properties>
@@ -165,5 +165,4 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
 </project>
