@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:11
 ARG PASSWORD=local
 ARG DATABASE=testing
 ENV PASSWORD ${PASSWORD}
