@@ -30,7 +30,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),
                         string(credentialsId: 'DecryptPassword',variable: "password"),
-                        string(credentialsId: 'Database-RDS-URL',variable: "database")
+                        string(credentialsId: 'Database-URL',variable: "database")
                 ]) {
                             sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
                             sh script: "docker image build --build-arg PASSWORD=${password} --build-arg DATABASE=${database} -t ${dockerLogin}/auction ."
@@ -42,32 +42,33 @@ pipeline {
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
-                                        string(credentialsId: 'Auction-EC2-URL',variable: "host"),
-                                        string(credentialsId: 'Database-RDS-URL',variable: "database"),
+                                        //string(credentialsId: 'Auction-EC2-URL',variable: "host"),
+                                        string(credentialsId: 'Database-URL',variable: "database"),
                                         usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
-                                        sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity', passphraseVariable: '',
-                                        usernameVariable: 'userName')
+//                                         sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity', passphraseVariable: '',
+//                                         usernameVariable: 'userName')
                 ]){
-                         script{
-                        def remote = [:]
-                            remote.user = userName
-                            remote.host = host
-                            remote.name = userName
-                            remote.identityFile = identity
-                            remote.allowAnyHosts = 'true'
-                            //sshCommand remote: remote, command: 'docker container kill auction'
-                            //shCommand remote: remote, command: 'docker rm -v auction'
-                            sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
-                            sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
-                            sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 82:8443 --name auction ${dockerLogin}/auction"
-                            sshCommand remote: remote, command: "exit"
-                    }
+                    sh script: "kubectl apply -f auction-kubernetes-file.yaml"
+//                         script{
+//                         def remote = [:]
+//                             remote.user = userName
+//                             remote.host = host
+//                             remote.name = userName
+//                             remote.identityFile = identity
+//                             remote.allowAnyHosts = 'true'
+//                             //sshCommand remote: remote, command: 'docker container kill auction'
+//                             //shCommand remote: remote, command: 'docker rm -v auction'
+//                             sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
+//                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
+//                             sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 82:8443 --name auction ${dockerLogin}/auction"
+//                             sshCommand remote: remote, command: "exit"
+//                     }
                         timeout(time: 90, unit: 'SECONDS') {
                         waitUntil(initialRecurrencePeriod: 2000) {
                             script {
                                 def result =
-                                sh script: "curl -k --silent --output /dev/null https://${host}:82/auction-system-api/api/v1/categories",
+                                sh script: "curl -k --silent --output /dev/null https://${host}:31598/api/auction-sys-api/v1/categories",
                                 returnStatus: true
                                 return (result == 0)
                             }
