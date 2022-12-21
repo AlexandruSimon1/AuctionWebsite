@@ -60,4 +60,4 @@ spec:
   selector:
     app: auction-sys
   sessionAffinity: None
-  type: LoadBalancer
+  type: NodePort
