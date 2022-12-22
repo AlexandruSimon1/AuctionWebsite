@@ -41,6 +41,7 @@ pipeline {
         }
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
+                    container('kubectl') {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         //string(credentialsId: 'Auction-EC2-URL',variable: "host"),
                                         string(credentialsId: 'Database-URL',variable: "database"),
@@ -76,7 +77,7 @@ pipeline {
                     }
                         echo "Server is up"
                 }
-            }
+            }}
         }
         //         stage("Newman Test"){
         //             steps{
