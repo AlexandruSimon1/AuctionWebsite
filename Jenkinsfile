@@ -41,7 +41,7 @@ pipeline {
         }
                 stage("Deploy On AWS EC2 Instance"){
                     steps{
-                    container('kubectl') {
+                    container('worker-node') {
                         withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
                                         //string(credentialsId: 'Auction-EC2-URL',variable: "host"),
                                         string(credentialsId: 'Database-URL',variable: "database"),
