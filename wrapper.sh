@@ -4,4 +4,4 @@ while ! exec 6<>/dev/tcp/${DATABASE}/3306; do
     sleep 10
 done
 echo ">> connected to MySQL database! <<"
-java -Dspring.profiles.active=dev -Djasypt.encryptor.password=${PASSWORD} -Djava.security.egd=file:/dev/./urandom -jar /opt/auction-spring-boot-1.0.0-SNAPSHOT.jar
+java -Dspring.profiles.active=dev -Djasypt.encryptor.password=${PASSWORD} -Djava.security.egd=file:/dev/./urandom -jar /opt/auction-system-api-1.0.0-SNAPSHOT.jar

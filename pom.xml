@@ -136,7 +136,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>auction-spring-boot</finalName>
+        <finalName>${artifactId}-${version}</finalName>
     </build>
 
     <repositories>
