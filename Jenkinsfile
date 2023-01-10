@@ -55,7 +55,7 @@ pipeline {
                     remote.name = userName
                     remote.identityFile = identity
                     remote.allowAnyHosts = 'true'
-                    //sshCommand remote: remote, command: 'docker container kill auction'
+                    sshCommand remote: remote, command: 'docker container kill auction'
                     sshCommand remote: remote, command: 'docker rm -v auction'
                     sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
                     sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
