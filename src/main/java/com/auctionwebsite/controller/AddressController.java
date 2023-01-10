@@ -12,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/v1/addresses")
+@RequestMapping("/addresses")
 public class AddressController {
     private final AddressService addressService;
 

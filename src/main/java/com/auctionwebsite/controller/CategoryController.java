@@ -15,7 +15,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/v1/categories")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final AuctionService auctionService;
