@@ -39,45 +39,41 @@ pipeline {
                 echo "Building image and pushing it to DockerHub is successful done"
             }
         }
-                stage("Deploy On AWS EC2 Instance"){
-                    steps{
-                    container('worker-node') {
-                        withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
-                                        //string(credentialsId: 'Auction-EC2-URL',variable: "host"),
-                                        string(credentialsId: 'Database-URL',variable: "database"),
-                                        usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
+        stage("Deploy On AWS EC2 Instance"){
+            steps{
+                withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
+                                 string(credentialsId: 'Auction-Service-EC2-URL',variable: "host"),
+                                 string(credentialsId: 'Database-URL',variable: "database"),
+                                 usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
-//                                         sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity', passphraseVariable: '',
-//                                         usernameVariable: 'userName')
-                ]){
-                    sh script: "kubectl apply -f auction-kubernetes-file.yaml"
-//                         script{
-//                         def remote = [:]
-//                             remote.user = userName
-//                             remote.host = host
-//                             remote.name = userName
-//                             remote.identityFile = identity
-//                             remote.allowAnyHosts = 'true'
-//                             //sshCommand remote: remote, command: 'docker container kill auction'
-//                             //shCommand remote: remote, command: 'docker rm -v auction'
-//                             sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
-//                             sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
-//                             sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 82:8443 --name auction ${dockerLogin}/auction"
-//                             sshCommand remote: remote, command: "exit"
-//                     }
-                        timeout(time: 90, unit: 'SECONDS') {
-                        waitUntil(initialRecurrencePeriod: 2000) {
-                            script {
-                                def result =
-                                sh script: "curl -k --silent --output /dev/null https://${host}:31598/api/auction-sys-api/v1/categories",
-                                returnStatus: true
-                                return (result == 0)
+                                 sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity',
+                                            passphraseVariable: '', usernameVariable: 'userName')]){
+            script{
+                def remote = [:]
+                    remote.user = userName
+                    remote.host = host
+                    remote.name = userName
+                    remote.identityFile = identity
+                    remote.allowAnyHosts = 'true'
+                    //sshCommand remote: remote, command: 'docker container kill auction'
+                    //shCommand remote: remote, command: 'docker rm -v auction'
+                    //sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
+                    sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
+                    sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 8443:8443 --name auction ${dockerLogin}/auction"
+                    sshCommand remote: remote, command: "exit"
+            }
+            timeout(time: 90, unit: 'SECONDS') {
+                waitUntil(initialRecurrencePeriod: 2000) {
+                    script {def result =
+                            sh script: "curl -k --silent --output /dev/null https://${host}:8443/api/auction-sys-api/v1/categories",
+                            returnStatus: true
+                            return (result == 0)
                             }
                         }
                     }
-                        echo "Server is up"
+                echo "Server is up"
                 }
-            }}
+            }
         }
         //         stage("Newman Test"){
         //             steps{
@@ -91,10 +87,10 @@ pipeline {
         //             bat "jmeter -jjmeter.save.saveservice.output_format.xml -n -t D:/RestaurantAPI.jmx -l D:/report.jtl"
         //             }
         //         }
-                        stage("Clean Docker Images"){
-                            steps{
-                            echo "Starting Deleting Created Docker Images"
-                            sh script: 'docker rmi $(docker images -q)'
+        stage("Clean Docker Images"){
+            steps{
+                  echo "Starting Deleting Created Docker Images"
+                  sh script: 'docker system prune -af --volumes'
             }
         }
     }
