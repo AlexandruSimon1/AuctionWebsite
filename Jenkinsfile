@@ -27,14 +27,14 @@ pipeline {
         stage("Build Docker image"){
             steps {
                 echo "Building service image and pushing it to DockerHub"
-                    withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
+                withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                         passwordVariable: "dockerPassword"),
                         string(credentialsId: 'DecryptPassword',variable: "password"),
                         string(credentialsId: 'Database-URL',variable: "database")
                 ]) {
-                            sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
-                            sh script: "docker image build --build-arg PASSWORD=${password} --build-arg DATABASE=${database} -t ${dockerLogin}/auction ."
-                            sh script: "docker push ${dockerLogin}/auction"
+                        sh script: "docker login -u ${dockerLogin} -p ${dockerPassword}"
+                        sh script: "docker image build --build-arg PASSWORD=${password} --build-arg DATABASE=${database} -t ${dockerLogin}/auction ."
+                        sh script: "docker push ${dockerLogin}/auction"
                 }
                 echo "Building image and pushing it to DockerHub is successful done"
             }
@@ -42,11 +42,11 @@ pipeline {
         stage("Deploy On AWS EC2 Instance"){
             steps{
                 withCredentials([string(credentialsId: 'DecryptPassword',variable: "password"),
-                                 string(credentialsId: 'Auction-Service-EC2-URL',variable: "host"),
-                                 string(credentialsId: 'Database-URL',variable: "database"),
-                                 usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
+                          string(credentialsId: 'Auction-Service-EC2-URL',variable: "host"),
+                          string(credentialsId: 'Database-URL',variable: "database"),
+                          usernamePassword(credentialsId: 'Docker', usernameVariable: "dockerLogin",
                                             passwordVariable: "dockerPassword"),
-                                 sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity',
+                          sshUserPrivateKey(credentialsId: 'AWS-Keypair', keyFileVariable: 'identity',
                                             passphraseVariable: '', usernameVariable: 'userName')]){
             script{
                 def remote = [:]
@@ -56,8 +56,8 @@ pipeline {
                     remote.identityFile = identity
                     remote.allowAnyHosts = 'true'
                     //sshCommand remote: remote, command: 'docker container kill auction'
-                    //shCommand remote: remote, command: 'docker rm -v auction'
-                    //sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
+                    sshCommand remote: remote, command: 'docker rm -v auction'
+                    sshCommand remote: remote, command: "docker rmi ${dockerLogin}/auction:latest"
                     sshCommand remote: remote, command: "docker login | docker pull ${dockerLogin}/auction"
                     sshCommand remote: remote, command: "docker container run --env PASSWORD=${password} --env DATABASE=${database} -d -p 8443:8443 --name auction ${dockerLogin}/auction"
                     sshCommand remote: remote, command: "exit"
